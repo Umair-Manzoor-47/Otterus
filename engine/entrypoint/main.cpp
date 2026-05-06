@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include <core/Logger.h>
 
 int main() {
@@ -6,3 +7,4 @@ int main() {
     LogWarning("Engine is Live");
     return 0;
 }
+
