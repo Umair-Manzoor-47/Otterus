@@ -1,15 +1,18 @@
 cmake_minimum_required(VERSION 3.26)
-project(MyEngine)
+project(Otterus)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Collect all source files
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+file(GLOB_RECURSE SOURCES
+        "engine/src/**.cpp"
+        "engine/entrypoint/*.cpp"
+)
 
-add_executable(MyEngine ${SOURCES})
+add_executable(Otterus ${SOURCES})
 
-target_include_directories(MyEngine PRIVATE
-        ${CMAKE_SOURCE_DIR}/include
+target_include_directories(Otterus PRIVATE
+        ${CMAKE_SOURCE_DIR}/engine/include
         ${CMAKE_SOURCE_DIR}/vendor
 )
