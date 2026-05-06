@@ -1,6 +1,10 @@
 #include <iostream>
 
+#include <core/Logger.h>
+
 int main() {
-    std::cout << "Otterus is alive." << std::endl;
+    LogInfo("Logger is up.");
+    LogWarning("Engine is Live");
     return 0;
 }
+
