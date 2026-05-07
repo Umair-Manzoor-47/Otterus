@@ -5,12 +5,12 @@
 
 #include <entrypoint/Application.h>
 #include <core/Core.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 class Flores : public engine::Application {
 public:
     void OnStart() override;
     void OnUpdate() override;
     void OnShutdown() override;
-private:
-    engine::i32 m_FrameCount;
 };

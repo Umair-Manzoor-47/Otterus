@@ -1,4 +1,14 @@
+# Build
 cmake-build-debug/
 cmake-build-release/
 .idea/
 *.exe
+
+# Compiled objects
+*.o
+*.obj
+*.a
+*.lib
+
+# Vendor - large libraries (add as submodules later)
+vendor/glfw/
