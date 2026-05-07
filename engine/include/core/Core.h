@@ -10,7 +10,7 @@ namespace engine
 {
     class Base;
     // class Window;
-    // class Game;
+    // class game;
     // class GraphicsEngine;
     // class GraphicsDevice;
     // class Logger;

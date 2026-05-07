@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Collect all source files
 file(GLOB_RECURSE SOURCES
         "engine/src/**.cpp"
-        "engine/entrypoint/*.cpp"
+        "game/**.cpp"
 )
 
 add_executable(Otterus ${SOURCES})
