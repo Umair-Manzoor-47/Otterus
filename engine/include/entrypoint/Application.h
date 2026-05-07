@@ -2,7 +2,8 @@
 // Created by umair on 5/8/2026.
 //
 #pragma once
-
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 namespace engine {
     class Application {
     public:
@@ -16,6 +17,12 @@ namespace engine {
 
     protected:
         bool m_Running = true;
+        GLFWwindow* window = nullptr;
+
+    private:
+        void InitWindow();
+        void UpdateWindow();
+        void ShutdownWindow();
     };
 
 
