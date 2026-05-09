@@ -5,11 +5,12 @@
 #include <entrypoint/Application.h>
 #include <core/Logger.h>
 
-void engine::Application::Run() {
 
+
+void engine::Application::Run() {
+    CreateGraphicsEngine();
     InitWindow();
     OnStart();
-
     while (m_Running) {
         OnUpdate();
         UpdateWindow();
@@ -47,6 +48,7 @@ void engine::Application::UpdateWindow() {
         m_Running = false;
         return;
     }
+    m_graphics_engine->Draw();
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
@@ -54,6 +56,10 @@ void engine::Application::UpdateWindow() {
 void engine::Application::ShutdownWindow() {
     glfwDestroyWindow(window);
     glfwTerminate();
+}
+
+void engine::Application::CreateGraphicsEngine() {
+    m_graphics_engine = std::make_unique<GraphicsEngine>();
 }
 
 

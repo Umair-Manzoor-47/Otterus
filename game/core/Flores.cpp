@@ -5,10 +5,23 @@
 #include "Flores.h"
 #include <core/Logger.h>
 void Flores::OnStart() {
-    LogInfo("Flores started.");
+    LogInfo("Flores started.");    float vertices[] = {
+        0.5f,  0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+       -0.5f, -0.5f, 0.0f,
+       -0.5f,  0.5f, 0.0f
+   };
+    unsigned int indices[] = {
+        0, 1, 3,
+        1, 2, 3
+    };
+    m_graphics_engine->RunGraphicsProgram(vertices, sizeof(vertices), indices, sizeof(indices));
+
+
 }
 
 void Flores::OnUpdate() {
+    m_graphics_engine->Draw();
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }
