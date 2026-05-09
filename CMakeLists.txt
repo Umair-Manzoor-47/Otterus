@@ -17,6 +17,7 @@ add_executable(Otterus ${SOURCES})
 target_sources(Otterus PRIVATE vendor/glad/src/glad.c)
 target_include_directories(Otterus PRIVATE
         ${CMAKE_SOURCE_DIR}/engine/include
+        ${CMAKE_SOURCE_DIR}/engine/src
         ${CMAKE_SOURCE_DIR}/vendor
         ${CMAKE_SOURCE_DIR}/vendor/glad/include
         ${CMAKE_SOURCE_DIR}/vendor/glad/src
