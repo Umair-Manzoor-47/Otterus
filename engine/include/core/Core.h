@@ -11,7 +11,7 @@ namespace engine
     class Base;
     // class Window;
     // class game;
-    // class GraphicsEngine;
+    class GraphicsEngine;
     // class GraphicsDevice;
     // class Logger;
     // class SwapChain;
