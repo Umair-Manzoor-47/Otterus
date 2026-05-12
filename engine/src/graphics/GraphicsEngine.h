@@ -6,7 +6,8 @@
 #include <fstream>
 #include <sstream>
 
-#include "Shader.h"
+#include <graphics/Mesh.h>
+#include <graphics/Shader.h>
 
 namespace engine {
     class GraphicsEngine {
@@ -14,21 +15,13 @@ namespace engine {
     public:
         GraphicsEngine() = default;
         void SetShader(const ShaderDesc &desc);
-        void RunGraphicsProgram(float vertices[], size_t size, ui32 indices[], size_t index_size);
+        void SetMesh(const MeshDesc &desc);
+
         void Draw();
     private:
-        ui32 VBO;
-        i32 success;
-        ui32 VAO;
-        ui32 EBO;
         Shader m_shader;
-
-        void initVertexBuffer(float vertices[], size_t size);
-        void initElementBuffer(ui32 indices[], size_t index_size);
-        void linkVertexAttributes();
+        std::unique_ptr<Mesh> m_mesh;
         
-
-        void createVAO();
         
     };
 
