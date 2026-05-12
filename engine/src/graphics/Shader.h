@@ -1,13 +1,14 @@
 #pragma once
 #include <core/Core.h>
 #include <string>
-
+#include <core/Common.h>
 #include "glad/glad.h"
 
 namespace engine {
     class Shader {
     public:
-        Shader(const std::string& vertexPath, const std::string& fragmentPath);
+        Shader() = default;
+        void Load(const ShaderDesc &desc);
         void Bind();
         ui32 GetProgram() const;
 

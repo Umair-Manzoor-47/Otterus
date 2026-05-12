@@ -8,8 +8,8 @@
 
 
 void engine::Application::Run() {
-    CreateGraphicsEngine();
     InitWindow();
+    CreateGraphicsEngine();
     OnStart();
     while (m_Running) {
         OnUpdate();
