@@ -5,7 +5,6 @@
 #include <sstream>
 #include <glad/glad.h>
 #include <core/Logger.h>
-#include <glfw/glfw3.h>
 #include <graphics/Shader.h>
 
 void engine::Shader::Load(const ShaderDesc &desc) {
