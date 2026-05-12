@@ -18,9 +18,9 @@ namespace engine {
     struct MeshDesc
     {
         f32*   vertices;
-        size_t size;        // byte size of vertices array
+        size_t size;
         ui32*  indices;
-        size_t index_size;  // byte size of indices array
+        i32 index_count;
     };
 
 }
