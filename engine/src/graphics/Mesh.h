@@ -10,9 +10,9 @@ namespace engine
         Mesh(const MeshDesc& desc);
         void Draw();
     private:
-        ui32 m_VAO = 0;
-        ui32 m_VBO = 0;
-        ui32 m_EBO = 0;
+        ui32 m_vao = 0;
+        ui32 m_vbo = 0;
+        ui32 m_ebo = 0;
         i32 m_count = 0;
 
         void initVertexArray();
