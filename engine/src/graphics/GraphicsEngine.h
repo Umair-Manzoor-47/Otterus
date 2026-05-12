@@ -5,38 +5,31 @@
 #include <core/Core.h>
 #include <fstream>
 #include <sstream>
+
+#include "Shader.h"
+
 namespace engine {
     class GraphicsEngine {
 
     public:
+        GraphicsEngine() = default;
+        void SetShader(const ShaderDesc &desc);
         void RunGraphicsProgram(float vertices[], size_t size, ui32 indices[], size_t index_size);
         void Draw();
     private:
         ui32 VBO;
-        ui32 vertexShader;
-        ui32 fragmentShader;
         i32 success;
-        ui32 shaderProgram;
         ui32 VAO;
-
         ui32 EBO;
-        std::string vertexShaderCode;
-        std::string fragmentShaderCode;
+        Shader m_shader;
 
-        void readShadersSources(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
         void initVertexBuffer(float vertices[], size_t size);
         void initElementBuffer(ui32 indices[], size_t index_size);
-        void createVertexShader();
-        void createFragmentShader();
-
-        void createShaderProgram();
-        void deletShaders();
-
         void linkVertexAttributes();
+        
 
         void createVAO();
-
-        std::string readFile(const std::string& path);
+        
     };
 
 

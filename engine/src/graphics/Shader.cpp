@@ -7,9 +7,10 @@
 #include <core/Logger.h>
 #include <glfw/glfw3.h>
 #include <graphics/Shader.h>
-engine::Shader::Shader(const std::string &vertexPath, const std::string &fragmentPath) {
-    std::string vertexShaderCode = readFile(vertexPath);
-    std::string fragmentShaderCode = readFile(fragmentPath);
+
+void engine::Shader::Load(const ShaderDesc &desc) {
+    std::string vertexShaderCode = readFile(desc.vertexPath);
+    std::string fragmentShaderCode = readFile(desc.fragmentPath);
     compile(vertexShaderCode, fragmentShaderCode);
     deleteShaders();
 }

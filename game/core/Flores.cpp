@@ -15,6 +15,11 @@ void Flores::OnStart() {
         0, 1, 3,
         1, 2, 3
     };
+    
+    m_graphics_engine->SetShader({
+        "../assets/shaders/vertex_shader.glsl",
+        "../assets/shaders/fragment_shader.glsl"
+      });
     m_graphics_engine->RunGraphicsProgram(vertices, sizeof(vertices), indices, sizeof(indices));
 
 
