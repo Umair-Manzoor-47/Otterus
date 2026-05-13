@@ -23,5 +23,16 @@ namespace engine {
         i32 index_count;
     };
 
+    enum class EventType
+    {
+        None = 0,
+        // Window
+        WindowClose, WindowResize,
+        // Keyboard  
+        KeyPressed, KeyReleased,
+        // Mouse
+        MouseMoved, MouseButtonPressed, MouseButtonReleased, MouseScrolled
+    };
+
 }
 

@@ -1,15 +1,5 @@
 ﻿#include <event/Dispatcher.h>
 
-engine::Dispatcher::SubscriberID engine::Dispatcher::Subscribe(
-    EventType type,
-    Callback callback)
-{
-    SubscriberID id = m_nextID++;
-
-    m_listeners[type].emplace_back(id, std::move(callback));
-
-    return id;
-}
 
 void engine::Dispatcher::Dispatch(Event& event)
 {
