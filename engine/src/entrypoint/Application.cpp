@@ -4,62 +4,43 @@
 
 #include <entrypoint/Application.h>
 #include <core/Logger.h>
-
+#include <event/window/WindowCloseEvent.h>
+#include <window/Window.h>
 
 
 void engine::Application::Run() {
-    InitWindow();
-    CreateGraphicsEngine();
+    Init();
     OnStart();
     while (m_Running) {
         OnUpdate();
-        UpdateWindow();
+        m_graphics_engine->Draw();
+        m_window->Update();
     }
 
     OnShutdown();
-    ShutdownWindow();
+    m_window->Destroy();
 
 }
 
-void engine::Application::InitWindow() {
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    window = glfwCreateWindow(800, 600, "Otterus", NULL, NULL);
-    if (window == NULL)
-    {
-        LogError("Failed to create GLFW window");
-        glfwTerminate();
-        return;
-    }
-    glfwMakeContextCurrent(window);
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-         LogError("Failed to initialize GLAD");
-        return;
-    }
-
-}
-
-void engine::Application::UpdateWindow() {
-    if (glfwWindowShouldClose(window)) {
-        m_Running = false;
-        return;
-    }
-    m_graphics_engine->Draw();
-    glfwSwapBuffers(window);
-    glfwPollEvents();
-}
-
-void engine::Application::ShutdownWindow() {
-    glfwDestroyWindow(window);
-    glfwTerminate();
-}
 
 void engine::Application::CreateGraphicsEngine() {
     m_graphics_engine = std::make_unique<GraphicsEngine>();
 }
 
 
+void engine::Application::Init()
+{
+    m_window = std::make_unique<Window>(
+        WindowDesc{
+            800,
+            600,
+            "Otterus"
+        },
+        m_dispatcher);
+    m_window->Init();
+    m_dispatcher.Subscribe<WindowCloseEvent>([this](WindowCloseEvent& e) {
+        m_Running = false;
+        e.Handled = true;
+    });
+    CreateGraphicsEngine();
+}

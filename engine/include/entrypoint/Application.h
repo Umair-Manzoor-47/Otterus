@@ -6,6 +6,8 @@
 #include <GLFW/glfw3.h>
 #include <core/Core.h>
 #include <graphics/GraphicsEngine.h>
+#include <event/Dispatcher.h>
+#include <window/Window.h>
 namespace engine {
     class Application {
     public:
@@ -16,18 +18,16 @@ namespace engine {
         virtual void OnShutdown() = 0;
 
 
-
+        void Init();
         void Run();
 
     protected:
+        Dispatcher m_dispatcher{};
+        std::unique_ptr<Window> m_window;
         bool m_Running = true;
-        GLFWwindow* window = nullptr;
         std::unique_ptr<GraphicsEngine> m_graphics_engine;
 
     private:
-        void InitWindow();
-        void UpdateWindow();
-        void ShutdownWindow();
         void CreateGraphicsEngine();
     };
 
