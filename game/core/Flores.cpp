@@ -24,12 +24,24 @@ void Flores::OnStart() {
 
 }
 
-void Flores::OnUpdate() {
-    m_graphics_engine->Draw();
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-}
+void Flores::OnUpdate() {}
 
 void Flores::OnShutdown() {
     LogInfo("Flores shutdown.");
+}
+
+void Flores::OnRender()
+{   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+    m_graphics_engine->Draw();
+}
+
+engine::WindowDesc Flores::GetWindowDesc()
+{
+   return engine::WindowDesc{
+        800,
+        600,
+        "Otterus"
+    };
+    
 }

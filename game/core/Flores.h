@@ -13,4 +13,7 @@ public:
     void OnStart() override;
     void OnUpdate() override;
     void OnShutdown() override;
+    void OnRender() override;
+    engine::WindowDesc GetWindowDesc() override;
+    
 };
