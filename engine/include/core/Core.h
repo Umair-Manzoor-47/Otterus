@@ -9,8 +9,8 @@
 namespace engine
 {
     class Base;
-    // class Window;
-    // class game;
+    class Window;
+    class Dispatcher;
     class GraphicsEngine;
     // class GraphicsDevice;
     // class Logger;

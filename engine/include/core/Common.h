@@ -10,6 +10,11 @@ namespace engine {
     struct BaseDesc
     {
     };
+    struct WindowDesc {
+        ui32 width;
+        ui32 height;
+        const char* title;
+    };
     struct ShaderDesc
     {
         std::string vertexPath;
