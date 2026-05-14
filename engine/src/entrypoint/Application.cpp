@@ -13,7 +13,7 @@ void engine::Application::Run() {
     OnStart();
     while (m_Running) {
         OnUpdate();
-        m_graphics_engine->Draw();
+        OnRender();
         m_window->Update();
     }
 
@@ -31,11 +31,7 @@ void engine::Application::CreateGraphicsEngine() {
 void engine::Application::Init()
 {
     m_window = std::make_unique<Window>(
-        WindowDesc{
-            800,
-            600,
-            "Otterus"
-        },
+        GetWindowDesc(),
         m_dispatcher);
     m_window->Init();
     m_dispatcher.Subscribe<WindowCloseEvent>([this](WindowCloseEvent& e) {

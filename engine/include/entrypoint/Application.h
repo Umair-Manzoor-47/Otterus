@@ -16,6 +16,8 @@ namespace engine {
         virtual void OnStart() = 0;
         virtual void OnUpdate() = 0;
         virtual void OnShutdown() = 0;
+        virtual void OnRender() = 0;
+        virtual WindowDesc GetWindowDesc() = 0;
 
 
         void Init();
