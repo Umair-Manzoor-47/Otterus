@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <memory>
 
+struct GLFWwindow;
 namespace engine
 {
     class Base;

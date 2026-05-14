@@ -12,6 +12,8 @@ public:
     void Init();
     void Update();
     void Destroy();
+    GLFWwindow* GetWindowHandle() const { return m_handle; }
+    Dispatcher& GetDispatcher() const { return m_dispatcher; }
 
 private:
     GLFWwindow* m_handle = nullptr;
