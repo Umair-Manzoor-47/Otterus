@@ -2,12 +2,12 @@
 // Created by umair on 5/8/2026.
 //
 #pragma once
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <core/Core.h>
 #include <graphics/GraphicsEngine.h>
 #include <event/Dispatcher.h>
 #include <window/Window.h>
+#include <input_system/InputSystem.h>
+
 namespace engine {
     class Application {
     public:
@@ -26,6 +26,7 @@ namespace engine {
     protected:
         Dispatcher m_dispatcher{};
         std::unique_ptr<Window> m_window;
+        std::unique_ptr<InputSystem> m_inputSystem;
         bool m_Running = true;
         std::unique_ptr<GraphicsEngine> m_graphics_engine;
 

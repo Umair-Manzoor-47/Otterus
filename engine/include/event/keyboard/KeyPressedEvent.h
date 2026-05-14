@@ -5,9 +5,9 @@
 namespace engine {
     class KeyPressedEvent: public Event {
     public:
-        explicit KeyPressedEvent(const ui32 keyCode): m_keyCode(keyCode) {}
+        explicit KeyPressedEvent(const int keyCode): m_keyCode(keyCode) {}
 
-        ui32 GetKeyCode() const {return m_keyCode;}
+        int GetKeyCode() const {return m_keyCode;}
 
         EventType GetType() const override { return GetStaticType(); }
 
@@ -15,7 +15,7 @@ namespace engine {
             return EventType::KeyPressed;
         }
     private:
-        ui32 m_keyCode;
+        int m_keyCode;
     };
 
 }

@@ -4,6 +4,8 @@
 
 #include "Flores.h"
 #include <core/Logger.h>
+#include <event/keyboard/KeyPressedEvent.h>
+
 void Flores::OnStart() {
     LogInfo("Flores started.");    float vertices[] = {
         0.5f,  0.5f, 0.0f,
@@ -21,7 +23,9 @@ void Flores::OnStart() {
         "../assets/shaders/fragment_shader.glsl"
       });
     m_graphics_engine->SetMesh({vertices, sizeof(vertices), indices, 6});
-
+    m_dispatcher.Subscribe<engine::KeyPressedEvent>([this](engine::KeyPressedEvent& e) {
+        LogInfo("Key pressed.");
+    });
 }
 
 void Flores::OnUpdate() {}

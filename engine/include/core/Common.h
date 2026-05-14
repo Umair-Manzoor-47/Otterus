@@ -15,6 +15,9 @@ namespace engine {
         ui32 height;
         const char* title;
     };
+    struct InputDesc {
+       GLFWwindow* handle;
+    };
     struct ShaderDesc
     {
         std::string vertexPath;
