@@ -23,6 +23,8 @@ private:
     const char* m_title;
     
     static void OnWindowClose(GLFWwindow* handle);
+    static void OnWindowResize(GLFWwindow* handle, int width, int height);
+    
 };
 
 }

@@ -1,6 +1,7 @@
 ﻿#include <core/Logger.h>
 #include <window/Window.h>
 #include <event/window/WindowCloseEvent.h>
+#include <event/window/WindowResizeEvent.h>
 
 engine::Window::Window(const WindowDesc& desc, Dispatcher& dispatcher):m_height(desc.height), m_width(desc.width), m_title(desc.title), m_dispatcher(dispatcher) {}
 
@@ -20,6 +21,7 @@ void engine::Window::Init() {
 
     glfwMakeContextCurrent(m_handle);
     glfwSetWindowCloseCallback(m_handle, OnWindowClose);
+    glfwSetFramebufferSizeCallback(m_handle, OnWindowResize);
     
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
@@ -45,5 +47,14 @@ void engine::Window::OnWindowClose(GLFWwindow* handle) {
     
     // fire the event through dispatcher
     WindowCloseEvent event;
+    window->m_dispatcher.Dispatch(event);
+}
+
+void engine::Window::OnWindowResize(GLFWwindow* handle, int width, int height) {
+    // retrieve Window instance
+    Window* window = static_cast<Window*>(glfwGetWindowUserPointer(handle));
+    
+    // fire the event through dispatcher
+    WindowResizeEvent event{width, height};
     window->m_dispatcher.Dispatch(event);
 }

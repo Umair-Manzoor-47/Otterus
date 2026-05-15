@@ -5,6 +5,12 @@
 #include "Flores.h"
 #include <core/Logger.h>
 #include <event/keyboard/KeyPressedEvent.h>
+#include <event/keyboard/KeyReleasedEvent.h>
+#include <event/mouse/MouseButtonPressedEvent.h>
+#include <event/mouse/MouseButtonReleasedEvent.h>
+#include <event/mouse/MouseMovedEvent.h>
+#include <event/mouse/MouseScrolledEvent.h>
+#include <event/window/WindowResizeEvent.h>
 
 void Flores::OnStart() {
     LogInfo("Flores started.");    float vertices[] = {
@@ -24,7 +30,40 @@ void Flores::OnStart() {
       });
     m_graphics_engine->SetMesh({vertices, sizeof(vertices), indices, 6});
     m_dispatcher.Subscribe<engine::KeyPressedEvent>([this](engine::KeyPressedEvent& e) {
-        LogInfo("Key pressed.");
+        std::string msg = "Key pressed: " + std::to_string(e.GetKeyCode());
+        LogInfo(msg.c_str());
+    });
+
+    m_dispatcher.Subscribe<engine::KeyReleasedEvent>([this](engine::KeyReleasedEvent& e) {
+        std::string msg = "Key released: " + std::to_string(e.GetKeyCode());
+        LogInfo(msg.c_str());
+    });
+    
+    // m_dispatcher.Subscribe<engine::MouseMovedEvent>([this](engine::MouseMovedEvent& e)
+    // {
+    //     std::string msg = "Mouse Moved: " + std::to_string(e.GetX()) + ", " + std::to_string(e.GetY());
+    //     LogInfo(msg.c_str());
+    // });
+    m_dispatcher.Subscribe<engine::MouseButtonPressedEvent>([this](engine::MouseButtonPressedEvent& e)
+    {
+        std::string msg = "Mouse Button Pressed: " + std::to_string(e.GetButton());
+        LogInfo(msg.c_str());
+    });
+    m_dispatcher.Subscribe<engine::MouseButtonReleasedEvent>([this](engine::MouseButtonReleasedEvent& e)
+    {
+        std::string msg = "Mouse Button Released: " + std::to_string(e.GetButton());
+        LogInfo(msg.c_str());
+    });
+    m_dispatcher.Subscribe<engine::MouseScrolledEvent>([this](engine::MouseScrolledEvent& e)
+    {
+        std::string msg = "Mouse Scrolled Event: " + std::to_string(e.GetYOffset());
+        LogInfo(msg.c_str());
+    });
+    
+    m_dispatcher.Subscribe<engine::WindowResizeEvent>([this](engine::WindowResizeEvent& e)
+    {
+        std::string msg = "Window Resized: " + std::to_string(e.GetWidth());
+        LogInfo(msg.c_str());
     });
 }
 
