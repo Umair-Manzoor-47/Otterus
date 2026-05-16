@@ -13,11 +13,12 @@
 #include <event/window/WindowResizeEvent.h>
 
 void Flores::OnStart() {
-    LogInfo("Flores started.");    float vertices[] = {
-        0.5f,  0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-       -0.5f, -0.5f, 0.0f,
-       -0.5f,  0.5f, 0.0f
+    float vertices[] = {
+        //   x      y     z     u     v
+        0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+       -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+       -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
    };
     unsigned int indices[] = {
         0, 1, 3,
@@ -29,6 +30,7 @@ void Flores::OnStart() {
         "../assets/shaders/fragment_shader.glsl"
       });
     m_graphics_engine->SetMesh({vertices, sizeof(vertices), indices, 6});
+    m_graphics_engine->SetTexture({"../assets/container.jpg"});
     m_dispatcher.Subscribe<engine::KeyPressedEvent>([this](engine::KeyPressedEvent& e) {
         std::string msg = "Key pressed: " + std::to_string(e.GetKeyCode());
         LogInfo(msg.c_str());

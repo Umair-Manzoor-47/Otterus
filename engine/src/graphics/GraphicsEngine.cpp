@@ -11,7 +11,12 @@ void engine::GraphicsEngine::SetMesh(const MeshDesc& desc) {
     m_mesh = std::make_unique<Mesh>(desc);
 }
 
+void engine::GraphicsEngine::SetTexture(const std::string &path) {
+    m_texture = std::make_unique<Texture>(path);
+}
+
 void engine::GraphicsEngine::Draw() {
     m_shader.Bind();
+    m_texture->Bind();
     m_mesh->Draw();
 }

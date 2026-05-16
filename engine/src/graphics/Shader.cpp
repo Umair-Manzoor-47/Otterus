@@ -16,6 +16,7 @@ void engine::Shader::Load(const ShaderDesc &desc) {
 
 void engine::Shader::Bind() {
     glUseProgram(m_ShaderProgram);
+    glUniform1i(glGetUniformLocation(m_ShaderProgram, "Texture"), 0);
 }
 
 engine::ui32 engine::Shader::GetProgram() const {

@@ -17,9 +17,19 @@ void engine::Mesh::initElementBuffer(ui32 indices[], size_t index_size) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_size * sizeof(ui32), indices, GL_STATIC_DRAW);
 }
+
+/// Here is map of linking vertex attributes
+// argument 1: 0              → which attribute slot (location = 0 in vertex shader)
+// argument 2: 3              → how many values this attribute has (x, y, z = 3)
+// argument 3: GL_FLOAT       → what type each value is
+// argument 4: GL_FALSE       → don't normalize
+// argument 5: 3 * sizeof(float) → STRIDE: total bytes per vertex (jump this much to get to next vertex)
+// argument 6: (void*)0       → OFFSET: where does this attribute start within the vertex (0 = beginning)
 void engine::Mesh::linkVertexAttributes() {
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),  (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 }
 engine::Mesh::Mesh(const MeshDesc& desc): m_count(desc.index_count) {
 
