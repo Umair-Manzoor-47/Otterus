@@ -9,6 +9,8 @@
 #include <graphics/Mesh.h>
 #include <graphics/Shader.h>
 
+#include <graphics/Texture.h>
+
 namespace engine {
     class GraphicsEngine {
 
@@ -16,11 +18,13 @@ namespace engine {
         GraphicsEngine() = default;
         void SetShader(const ShaderDesc &desc);
         void SetMesh(const MeshDesc &desc);
+        void SetTexture(const std::string& path);
 
         void Draw();
     private:
         Shader m_shader;
         std::unique_ptr<Mesh> m_mesh;
+        std::unique_ptr<Texture> m_texture;
         
         
     };
