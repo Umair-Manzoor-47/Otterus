@@ -84,7 +84,7 @@ void engine::Shader::SetUniform(const std::string &name, const glm::mat4 &matrix
 
     if (location == -1)
     {
-        LogWarning("Uniform not found: {}", name);
+        LogWarning("Uniform not found: {}");
         return;
     }
 

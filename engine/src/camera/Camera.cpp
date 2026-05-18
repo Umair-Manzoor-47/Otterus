@@ -76,19 +76,19 @@ void engine::Camera::SetOrtho(float height, float near, float far)
    calculateProjectionMatrix();
 }
 
-void engine::Camera::SetPosition(glm::vec3 position)
+void engine::Camera::SetPosition(const glm::vec3 position)
 {
    m_position = position;
    calculateViewMatrix();
    
 }
-void engine::Camera::SetUpVector(glm::vec3 upVector)
+void engine::Camera::SetUpVector(const glm::vec3 upVector)
 {
    m_upVector = upVector;
    calculateViewMatrix();
 }
 
-void engine::Camera::SetForward(glm::vec3 forward)
+void engine::Camera::SetForward(const glm::vec3 forward)
 {
    m_forward = forward;
    calculateViewMatrix();
