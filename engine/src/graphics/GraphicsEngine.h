@@ -19,8 +19,7 @@ namespace engine {
         void SetShader(const ShaderDesc &desc);
         void SetMesh(const MeshDesc &desc);
         void SetTexture(const std::string& path);
-
-        void Draw();
+        void Draw(const glm::mat4& projection, const glm::mat4& view);
     private:
         Shader m_shader;
         std::unique_ptr<Mesh> m_mesh;

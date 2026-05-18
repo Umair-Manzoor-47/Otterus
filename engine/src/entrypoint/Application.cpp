@@ -36,6 +36,7 @@ void engine::Application::Init()
     m_inputSystem = std::make_unique<InputSystem>(
     InputDesc{ m_window->GetWindowHandle() }
 );
+    m_camera = std::make_shared<Camera>();
     m_dispatcher.Subscribe<WindowCloseEvent>([this](WindowCloseEvent& e) {
         m_Running = false;
         e.Handled = true;

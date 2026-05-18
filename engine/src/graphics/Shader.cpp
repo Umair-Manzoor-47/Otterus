@@ -6,6 +6,7 @@
 #include <glad/glad.h>
 #include <core/Logger.h>
 #include <graphics/Shader.h>
+#include <glm/gtc/type_ptr.hpp>
 
 void engine::Shader::Load(const ShaderDesc &desc) {
     std::string vertexShaderCode = readFile(desc.vertexPath);
@@ -72,4 +73,25 @@ engine::ui32 engine::Shader::createShader(const std::string &code, GLenum type) 
 void engine::Shader::deleteShaders() {
         glDeleteShader(m_vertexShader);
         glDeleteShader(m_fragmentShader);
+}
+
+void engine::Shader::SetUniform(const std::string &name, const glm::mat4 &matrix)
+{
+    GLint location = glGetUniformLocation(
+       m_ShaderProgram,
+       name.c_str()
+   );
+
+    if (location == -1)
+    {
+        LogWarning("Uniform not found: {}", name);
+        return;
+    }
+
+    glUniformMatrix4fv(
+        location,
+        1,
+        GL_FALSE,
+        glm::value_ptr(matrix)
+    );
 }

@@ -78,7 +78,7 @@ void Flores::OnShutdown() {
 void Flores::OnRender()
 {   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    m_graphics_engine->Draw();
+    m_graphics_engine->Draw(m_camera->GetProjectionMatrix(), m_camera->GetViewMatrix());
 }
 
 engine::WindowDesc Flores::GetWindowDesc()
