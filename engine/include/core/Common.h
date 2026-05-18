@@ -5,6 +5,7 @@
 #pragma once
 #include <string>
 #include <core/Core.h>
+#include <glm/glm.hpp>
 
 namespace engine {
     struct BaseDesc
@@ -36,12 +37,7 @@ namespace engine {
         glm::vec3 Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
         glm::vec3 Scale    = glm::vec3(1.0f, 1.0f, 1.0f);
     };
-
-    struct CameraDesc {
-        Transform& transform;
-
-
-    };
+    
     enum class EventType
     {
         None = 0,
