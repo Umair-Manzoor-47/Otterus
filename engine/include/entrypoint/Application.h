@@ -15,7 +15,7 @@ namespace engine {
         virtual ~Application() = default;
 
         virtual void OnStart() = 0;
-        virtual void OnUpdate() = 0;
+        virtual void OnUpdate(float deltaTime) = 0;
         virtual void OnShutdown() = 0;
         virtual void OnRender() = 0;
         virtual WindowDesc GetWindowDesc() = 0;
@@ -25,6 +25,7 @@ namespace engine {
         void Run();
 
     protected:
+        WindowUserData m_windowUserData;
         Dispatcher m_dispatcher{};
         std::unique_ptr<Window> m_window;
         std::unique_ptr<InputSystem> m_inputSystem;
@@ -34,6 +35,9 @@ namespace engine {
 
     private:
         void CreateGraphicsEngine();
+        float m_lastTime = 0.f;
+        
+        float calculateDeltaTime();
     };
 
 

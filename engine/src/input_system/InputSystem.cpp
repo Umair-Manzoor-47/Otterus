@@ -16,50 +16,65 @@ engine::InputSystem::InputSystem(const InputDesc& desc) {
     glfwSetScrollCallback(desc.handle, ScrollCallback);
 }
 
+bool engine::InputSystem::IsKeyHeld(int keyCode) const
+{
+    return m_keyStates[keyCode];
+}
+
 void engine::InputSystem::KeyCallback(GLFWwindow *handle, int key, int scancode, int action, int mods) {
-    Window* window = static_cast<Window*>(glfwGetWindowUserPointer(handle));
+    WindowUserData* data = static_cast<WindowUserData*>(
+        glfwGetWindowUserPointer(handle)
+    );
     
     if (action == GLFW_PRESS) {
+        data->input->m_keyStates[key] = true;
         KeyPressedEvent event{key};
-        window->GetDispatcher().Dispatch(event);
+        data->window->GetDispatcher().Dispatch(event);
     }
     else if (action == GLFW_RELEASE) {
+        data->input->m_keyStates[key] = false;
         KeyReleasedEvent event{key};
-        window->GetDispatcher().Dispatch(event);
+        data->window->GetDispatcher().Dispatch(event);
     }
     else if (action == GLFW_REPEAT) {
         KeyPressedEvent event{key};
-        window->GetDispatcher().Dispatch(event);
+        data->window->GetDispatcher().Dispatch(event);
     }
 
 }
 
 void engine::InputSystem::OnMouseMoved(GLFWwindow *handle, double x, double y) {
-    Window* window = static_cast<Window*>(glfwGetWindowUserPointer(handle));
+    WindowUserData* data = static_cast<WindowUserData*>(
+        glfwGetWindowUserPointer(handle)
+    );
     MouseMovedEvent event{x, y};
     
-    window->GetDispatcher().Dispatch(event);
+    data->window->GetDispatcher().Dispatch(event);
 }
 
 void engine::InputSystem::MouseButtonCallback(GLFWwindow *handle, int button, int action, int mods)
 {
-    Window* window = static_cast<Window*>(glfwGetWindowUserPointer(handle));
+    WindowUserData* data = static_cast<WindowUserData*>(
+        glfwGetWindowUserPointer(handle)
+    );
     if (action == GLFW_PRESS)
     {
         MouseButtonPressedEvent event{button};
-        window->GetDispatcher().Dispatch(event);
+        data->window->GetDispatcher().Dispatch(event);
     }
     else if (action == GLFW_RELEASE)
     {
         MouseButtonReleasedEvent event{button};
-        window->GetDispatcher().Dispatch(event);
+        data->window->GetDispatcher().Dispatch(event);
     }
 
 }
 
 void engine::InputSystem::ScrollCallback(GLFWwindow* handle, double x, double y)
 {
-    Window* window = static_cast<Window*>(glfwGetWindowUserPointer(handle));
+    WindowUserData* data = static_cast<WindowUserData*>(
+        glfwGetWindowUserPointer(handle)
+    );
     MouseScrolledEvent event{x, y};
-    window->GetDispatcher().Dispatch(event);
+   data->window->GetDispatcher().Dispatch(event);
 }
