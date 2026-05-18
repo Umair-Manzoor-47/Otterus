@@ -17,7 +17,6 @@ void engine::Window::Init() {
         glfwTerminate();
         return;
     }
-    glfwSetWindowUserPointer(m_handle, this);
 
     glfwMakeContextCurrent(m_handle);
     glfwSetWindowCloseCallback(m_handle, OnWindowClose);
@@ -43,18 +42,20 @@ void engine::Window::Destroy() {
 
 void engine::Window::OnWindowClose(GLFWwindow* handle) {
     // retrieve Window instance
-    Window* window = static_cast<Window*>(glfwGetWindowUserPointer(handle));
-    
+    WindowUserData* data = static_cast<WindowUserData*>(
+        glfwGetWindowUserPointer(handle)
+    );
     // fire the event through dispatcher
     WindowCloseEvent event;
-    window->m_dispatcher.Dispatch(event);
+    data->window->m_dispatcher.Dispatch(event);
 }
 
 void engine::Window::OnWindowResize(GLFWwindow* handle, int width, int height) {
     // retrieve Window instance
-    Window* window = static_cast<Window*>(glfwGetWindowUserPointer(handle));
-    
+    WindowUserData* data = static_cast<WindowUserData*>(
+        glfwGetWindowUserPointer(handle)
+    );   
     // fire the event through dispatcher
     WindowResizeEvent event{width, height};
-    window->m_dispatcher.Dispatch(event);
+    data->window->m_dispatcher.Dispatch(event);
 }

@@ -11,7 +11,7 @@ void engine::Application::Run() {
     Init();
     OnStart();
     while (m_Running) {
-        OnUpdate();
+        OnUpdate(calculateDeltaTime());
         OnRender();
         m_window->Update();
     }
@@ -42,4 +42,14 @@ void engine::Application::Init()
         e.Handled = true;
     });
     CreateGraphicsEngine();
+    m_windowUserData = { m_window.get(), m_inputSystem.get() };
+    glfwSetWindowUserPointer(m_window->GetWindowHandle(), &m_windowUserData);
+}
+
+float engine::Application::calculateDeltaTime()
+{
+    float currentTime = glfwGetTime();
+    float deltaTime = currentTime - m_lastTime;
+    m_lastTime = currentTime;
+    return deltaTime;
 }

@@ -13,6 +13,7 @@ namespace engine
     class Window;
     class Dispatcher;
     class GraphicsEngine;
+    class InputSystem;
     // class GraphicsDevice;
     // class Logger;
     // class SwapChain;

@@ -11,6 +11,10 @@ namespace engine {
     struct BaseDesc
     {
     };
+    struct WindowUserData {
+        Window* window;
+        InputSystem* input;
+    };
     struct WindowDesc {
         ui32 width;
         ui32 height;

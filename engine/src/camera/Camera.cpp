@@ -1,4 +1,5 @@
-﻿#include <camera/Camera.h>
+﻿#include <algorithm>
+#include <camera/Camera.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 engine::Camera::Camera()
@@ -118,5 +119,20 @@ void engine::Camera::calculateProjectionMatrix()
 
 void engine::Camera::calculateViewMatrix()
 {
+   m_right = glm::normalize(glm::cross(m_forward, m_upVector));
    m_viewMatrix = glm::lookAt(m_position, m_position + m_forward, m_upVector);
+}
+
+void engine::Camera::SetRotation(float yaw, float pitch)
+{
+   m_yaw = yaw;
+   m_pitch = std::clamp(pitch, -89.f, 89.f);
+   
+   m_forward.x = cos(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+   m_forward.y = sin(glm::radians(m_pitch));
+   m_forward.z = sin(glm::radians(m_yaw)) * cos(glm::radians(m_pitch));
+   m_forward = glm::normalize(m_forward);
+
+   calculateViewMatrix();
+   
 }
