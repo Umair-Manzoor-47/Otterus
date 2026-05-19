@@ -11,6 +11,7 @@
 #include <event/mouse/MouseMovedEvent.h>
 #include <event/mouse/MouseScrolledEvent.h>
 #include <event/window/WindowResizeEvent.h>
+#include <graphics/Transform.h>
 
 void Flores::OnStart() {
     float vertices[] = {
@@ -24,7 +25,11 @@ void Flores::OnStart() {
         0, 1, 3,
         1, 2, 3
     };
-    
+    m_transform = std::make_unique<engine::Transform>(engine::TransformDesc{
+    glm::vec3(0.f, 0.f, -3.f),  // position
+    glm::vec3(0.f),               // rotation
+    glm::vec3(1.f)                // scale
+    });
     m_graphics_engine->SetShader({
         "../assets/shaders/vertex_shader.glsl",
         "../assets/shaders/fragment_shader.glsl"
@@ -116,6 +121,7 @@ void Flores::OnUpdate(float deltaTime)
         m_camera->SetPosition(m_camera->GetPosition() + m_camera->GetRightVector() * speed * deltaTime);
         
     }
+    m_transform->SetRotation(glm::vec3(0.f, glfwGetTime() * 50.f, 0.f));
 }
 
 void Flores::OnShutdown() {
@@ -125,7 +131,10 @@ void Flores::OnShutdown() {
 void Flores::OnRender()
 {   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    m_graphics_engine->Draw(m_camera->GetProjectionMatrix(), m_camera->GetViewMatrix());
+    m_graphics_engine->Draw(
+        m_camera->GetProjectionMatrix(),
+        m_camera->GetViewMatrix(), 
+        m_transform->GetModelMatrix());
 }
 
 engine::WindowDesc Flores::GetWindowDesc()

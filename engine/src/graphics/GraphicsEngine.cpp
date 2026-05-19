@@ -15,10 +15,12 @@ void engine::GraphicsEngine::SetTexture(const std::string &path) {
     m_texture = std::make_unique<Texture>(path);
 }
 
-void engine::GraphicsEngine::Draw(const glm::mat4& projection, const glm::mat4& view){
+void engine::GraphicsEngine::Draw(const glm::mat4& projection, const glm::mat4& view,
+    const glm::mat4& model){
     m_shader.Bind();
     m_texture->Bind();
     m_shader.SetUniform("projection", projection);
     m_shader.SetUniform("view", view);
+    m_shader.SetUniform("model", model);
     m_mesh->Draw();
 }

@@ -18,9 +18,9 @@ namespace engine {
         void SetScale(const glm::vec3& scale);
 
         // Getters
-        glm::vec3 GetPosition() const;
-        glm::vec3 GetRotation() const;
-        glm::vec3 GetScale() const;
+        const glm::vec3& GetPosition() const;
+        const glm::vec3& GetRotation() const;
+        const glm::vec3& GetScale() const;
 
         glm::mat4 GetModelMatrix() const;
 

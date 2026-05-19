@@ -7,6 +7,7 @@
 #include <core/Core.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <graphics/Transform.h>
 
 class Flores : public engine::Application {
 public:
@@ -22,4 +23,5 @@ private:
     float m_yaw   = -90.f;
     float m_pitch = 0.f;
     bool m_firstMouse = true;
+    std::unique_ptr<engine::Transform> m_transform;
 };
