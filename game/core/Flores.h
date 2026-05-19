@@ -18,6 +18,9 @@ public:
     engine::WindowDesc GetWindowDesc() override;
     
 private:
+    engine::InputSystem* m_input = nullptr;
+    engine::GraphicsEngine* m_gfx = nullptr;
+    std::shared_ptr<engine::Camera> m_camera;
     float m_lastMouseX = 400.f;
     float m_lastMouseY = 300.f;
     float m_yaw   = -90.f;
