@@ -28,15 +28,15 @@ void engine::Transform::SetScale(const glm::vec3 &scale) {
     generateModelMatrix();
 }
 
-glm::vec3 engine::Transform::GetPosition() const {
+const glm::vec3& engine::Transform::GetPosition() const {
     return m_position;
 }
 
-glm::vec3 engine::Transform::GetRotation() const {
+const glm::vec3& engine::Transform::GetRotation() const {
     return m_rotation;
 }
 
-glm::vec3 engine::Transform::GetScale() const {
+const glm::vec3& engine::Transform::GetScale() const {
     return m_scale;
 }
 
