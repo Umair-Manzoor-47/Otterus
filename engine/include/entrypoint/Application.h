@@ -8,6 +8,7 @@
 #include <event/Dispatcher.h>
 #include <window/Window.h>
 #include <input_system/InputSystem.h>
+#include <engine_context/EngineContext.h>
 
 namespace engine {
     class Application {
@@ -25,16 +26,11 @@ namespace engine {
         void Run();
 
     protected:
-        WindowUserData m_windowUserData;
-        Dispatcher m_dispatcher{};
-        std::unique_ptr<Window> m_window;
-        std::unique_ptr<InputSystem> m_inputSystem;
-        std::shared_ptr<Camera> m_camera;
         bool m_Running = true;
-        std::unique_ptr<GraphicsEngine> m_graphics_engine;
+        EngineContext& GetContext() { return *m_context; }
 
     private:
-        void CreateGraphicsEngine();
+        std::unique_ptr<EngineContext> m_context;
         float m_lastTime = 0.f;
         
         float calculateDeltaTime();

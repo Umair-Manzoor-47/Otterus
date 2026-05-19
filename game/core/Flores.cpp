@@ -14,6 +14,9 @@
 #include <graphics/Transform.h>
 
 void Flores::OnStart() {
+    m_camera = std::make_unique<engine::Camera>();
+    m_input = &GetContext().GetInputSystem();
+    m_gfx   = &GetContext().GetGraphicsEngine();
     float vertices[] = {
         //   x      y     z     u     v
         0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
@@ -30,12 +33,12 @@ void Flores::OnStart() {
     glm::vec3(0.f),               // rotation
     glm::vec3(1.f)                // scale
     });
-    m_graphics_engine->SetShader({
+    m_gfx->SetShader({
         "../assets/shaders/vertex_shader.glsl",
         "../assets/shaders/fragment_shader.glsl"
       });
-    m_graphics_engine->SetMesh({vertices, sizeof(vertices), indices, 6});
-    m_graphics_engine->SetTexture({"../assets/container.jpg"});
+    m_gfx->SetMesh({vertices, sizeof(vertices), indices, 6});
+    m_gfx->SetTexture({"../assets/container.jpg"});
     // m_dispatcher.Subscribe<engine::KeyPressedEvent>([this](engine::KeyPressedEvent& e) {
     //     std::string msg = "Key pressed: " + std::to_string(e.GetKeyCode());
     //     LogInfo(msg.c_str());
@@ -72,7 +75,7 @@ void Flores::OnStart() {
     //     std::string msg = "Window Resized: " + std::to_string(e.GetWidth());
     //     LogInfo(msg.c_str());
     // });
-    m_dispatcher.Subscribe<engine::MouseMovedEvent>([this](engine::MouseMovedEvent& e) {
+    GetContext().GetDispatcher().Subscribe<engine::MouseMovedEvent>([this](engine::MouseMovedEvent& e) {
     if (m_firstMouse) {
         m_lastMouseX = e.GetX();
         m_lastMouseY = e.GetY();
@@ -96,26 +99,27 @@ void Flores::OnStart() {
 
 void Flores::OnUpdate(float deltaTime)
 {
+
     float speed = 5.f;
     
-    if (m_inputSystem->IsKeyHeld(GLFW_KEY_W))
+    if (m_input->IsKeyHeld(GLFW_KEY_W))
     {
         // move forward
         m_camera->SetPosition(m_camera->GetPosition() + m_camera->GetForward() * speed * deltaTime);
         
     }
-    if (m_inputSystem->IsKeyHeld(GLFW_KEY_S))
+    if (m_input->IsKeyHeld(GLFW_KEY_S))
     {
         // move backward
         m_camera->SetPosition(m_camera->GetPosition() - m_camera->GetForward() * speed * deltaTime);
         
     }
-    if (m_inputSystem->IsKeyHeld(GLFW_KEY_A))
+    if (m_input->IsKeyHeld(GLFW_KEY_A))
     {
         // move left
         m_camera->SetPosition(m_camera->GetPosition() - m_camera->GetRightVector() * speed * deltaTime);
     }
-    if (m_inputSystem->IsKeyHeld(GLFW_KEY_D))
+    if (m_input->IsKeyHeld(GLFW_KEY_D))
     {
         // move right
         m_camera->SetPosition(m_camera->GetPosition() + m_camera->GetRightVector() * speed * deltaTime);
@@ -131,7 +135,7 @@ void Flores::OnShutdown() {
 void Flores::OnRender()
 {   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    m_graphics_engine->Draw(
+    GetContext().GetGraphicsEngine().Draw(
         m_camera->GetProjectionMatrix(),
         m_camera->GetViewMatrix(), 
         m_transform->GetModelMatrix());
