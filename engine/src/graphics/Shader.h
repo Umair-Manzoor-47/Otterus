@@ -9,9 +9,9 @@ namespace engine {
     public:
         Shader() = default;
         void Load(const ShaderDesc &desc);
-        void Bind();
+        void Bind() const;
         ui32 GetProgram() const;
-        void SetUniform(const std::string& name, const glm::mat4& matrix);
+        void SetUniform(const std::string& name, const glm::mat4& matrix) const;
 
     private:
         ui32 m_ShaderProgram;

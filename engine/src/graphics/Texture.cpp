@@ -37,6 +37,6 @@ void engine::Texture::load(const std::string &path) {
     }
 }
 
-void engine::Texture::Bind() {
+void engine::Texture::Bind() const {
     glBindTexture(GL_TEXTURE_2D, m_textureID);
 }

@@ -15,7 +15,7 @@ void engine::Shader::Load(const ShaderDesc &desc) {
     deleteShaders();
 }
 
-void engine::Shader::Bind() {
+void engine::Shader::Bind() const {
     glUseProgram(m_ShaderProgram);
     glUniform1i(glGetUniformLocation(m_ShaderProgram, "Texture"), 0);
 }
@@ -75,7 +75,7 @@ void engine::Shader::deleteShaders() {
         glDeleteShader(m_fragmentShader);
 }
 
-void engine::Shader::SetUniform(const std::string &name, const glm::mat4 &matrix)
+void engine::Shader::SetUniform(const std::string &name, const glm::mat4 &matrix) const
 {
     GLint location = glGetUniformLocation(
        m_ShaderProgram,
