@@ -2,7 +2,7 @@
 // Created by Umair Manzoor on 5/16/2026.
 // Copyright (c) 2026 Otterus, LLC. All rights reserved.
 //
-
+#pragma once
 #include <core/Core.h>
 #include <string>
 
@@ -10,7 +10,7 @@ namespace engine {
     class Texture {
     public:
         Texture(const std::string& path);
-        void Bind();
+        void Bind() const;
 
     private:
         ui32 m_textureID;

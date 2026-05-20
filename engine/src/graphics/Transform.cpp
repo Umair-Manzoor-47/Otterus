@@ -5,6 +5,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <graphics/Transform.h>
 
+engine::Transform::Transform()
+: m_position(0.f)
+, m_scale(1.f)
+, m_rotation(0.f) {
+
+    generateModelMatrix();
+}
+
 engine::Transform::Transform(const TransformDesc &desc):
     m_position(desc.Position),
     m_scale(desc.Scale),

@@ -3,24 +3,19 @@
 //
 #include <graphics/GraphicsEngine.h>
 
-void engine::GraphicsEngine::SetShader(const ShaderDesc &desc) {
-    m_shader.Load(desc);
-}
 
-void engine::GraphicsEngine::SetMesh(const MeshDesc& desc) {
-    m_mesh = std::make_unique<Mesh>(desc);
-}
-
-void engine::GraphicsEngine::SetTexture(const std::string &path) {
-    m_texture = std::make_unique<Texture>(path);
-}
-
-void engine::GraphicsEngine::Draw(const glm::mat4& projection, const glm::mat4& view,
-    const glm::mat4& model){
-    m_shader.Bind();
-    m_texture->Bind();
-    m_shader.SetUniform("projection", projection);
-    m_shader.SetUniform("view", view);
-    m_shader.SetUniform("model", model);
-    m_mesh->Draw();
+void engine::GraphicsEngine::Draw(
+    const Mesh& mesh,
+    const Shader& shader,
+    const Texture* texture,
+    const glm::mat4& projection,
+    const glm::mat4& view,
+    const glm::mat4& model)
+{
+    shader.Bind();
+    if (texture) texture->Bind();
+    shader.SetUniform("projection", projection);
+    shader.SetUniform("view", view);
+    shader.SetUniform("model", model);
+    mesh.Draw();
 }

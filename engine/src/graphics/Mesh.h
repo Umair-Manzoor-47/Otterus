@@ -8,7 +8,7 @@ namespace engine
     {
     public:
         Mesh(const MeshDesc& desc);
-        void Draw();
+        void Draw() const;
     private:
         ui32 m_vao = 0;
         ui32 m_vbo = 0;

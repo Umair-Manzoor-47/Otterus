@@ -27,6 +27,7 @@ void engine::Window::Init() {
          LogError("Failed to initialize GLAD");
         return;
     }
+    glEnable(GL_DEPTH_TEST);
 
 }
 void engine::Window::Update() {

@@ -12,8 +12,15 @@
 #include <event/mouse/MouseScrolledEvent.h>
 #include <event/window/WindowResizeEvent.h>
 #include <graphics/Transform.h>
+#include <game_object/GameObject.h>
 
 void Flores::OnStart() {
+    std::unique_ptr<engine::GameObject> obj = std::make_unique<engine::GameObject>("Test", engine::TransformDesc{
+    glm::vec3(0.f, 0.f, -3.f),
+    glm::vec3(0.f),
+    glm::vec3(1.f)
+    });
+    
     m_camera = std::make_unique<engine::Camera>();
     m_input = &GetContext().GetInputSystem();
     m_gfx   = &GetContext().GetGraphicsEngine();
@@ -28,17 +35,22 @@ void Flores::OnStart() {
         0, 1, 3,
         1, 2, 3
     };
-    m_transform = std::make_unique<engine::Transform>(engine::TransformDesc{
-    glm::vec3(0.f, 0.f, -3.f),  // position
-    glm::vec3(0.f),               // rotation
-    glm::vec3(1.f)                // scale
-    });
-    m_gfx->SetShader({
+    // m_transform = std::make_unique<engine::Transform>(engine::TransformDesc{
+    // glm::vec3(0.f, 0.f, -3.f),  // position
+    // glm::vec3(0.f),               // rotation
+    // glm::vec3(1.f)                // scale
+    // });
+    std::shared_ptr<engine::Shader> m_shader = std::make_shared<engine::Shader>();
+    m_shader->Load({
         "../assets/shaders/vertex_shader.glsl",
         "../assets/shaders/fragment_shader.glsl"
       });
-    m_gfx->SetMesh({vertices, sizeof(vertices), indices, 6});
-    m_gfx->SetTexture({"../assets/container.jpg"});
+    obj->SetShader(m_shader);
+    std::shared_ptr<engine::Mesh> m_mesh = std::make_shared<engine::Mesh>(engine::MeshDesc{vertices, sizeof(vertices), indices, 6});
+    obj->SetMesh(m_mesh);
+    std::shared_ptr<engine::Texture> m_texture = std::make_shared<engine::Texture>("../assets/container.jpg");
+    obj->SetTexture(m_texture);
+    
     // m_dispatcher.Subscribe<engine::KeyPressedEvent>([this](engine::KeyPressedEvent& e) {
     //     std::string msg = "Key pressed: " + std::to_string(e.GetKeyCode());
     //     LogInfo(msg.c_str());
@@ -95,6 +107,20 @@ void Flores::OnStart() {
     
     m_camera->SetRotation(m_yaw, m_pitch);
     });
+    
+    auto obj2 = std::make_unique<engine::GameObject>("Test2", engine::TransformDesc{
+    glm::vec3(2.f, 0.f, -3.f),  // offset position
+    glm::vec3(0.f),
+    glm::vec3(1.f)
+});
+    // share same mesh/shader/texture
+    obj2->SetShader(m_shader);
+    obj2->SetMesh(m_mesh);
+    obj2->SetTexture(m_texture);
+
+    m_scene = std::make_unique<engine::Scene>();
+    m_scene->AddObject(std::move(obj));
+    m_scene->AddObject(std::move(obj2));
 }
 
 void Flores::OnUpdate(float deltaTime)
@@ -125,7 +151,12 @@ void Flores::OnUpdate(float deltaTime)
         m_camera->SetPosition(m_camera->GetPosition() + m_camera->GetRightVector() * speed * deltaTime);
         
     }
-    m_transform->SetRotation(glm::vec3(0.f, glfwGetTime() * 50.f, 0.f));
+    engine::GameObject* obj = m_scene->GetObject("Test");
+    if (obj) {
+        obj->GetTransform().SetRotation(
+            glm::vec3(0.f, glfwGetTime() * 50.f, 0.f)
+        );
+    }
 }
 
 void Flores::OnShutdown() {
@@ -134,11 +165,8 @@ void Flores::OnShutdown() {
 
 void Flores::OnRender()
 {   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
-    GetContext().GetGraphicsEngine().Draw(
-        m_camera->GetProjectionMatrix(),
-        m_camera->GetViewMatrix(), 
-        m_transform->GetModelMatrix());
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    m_scene->Render(GetContext().GetGraphicsEngine(), *m_camera);
 }
 
 engine::WindowDesc Flores::GetWindowDesc()

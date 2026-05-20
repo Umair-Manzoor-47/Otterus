@@ -40,7 +40,7 @@ engine::Mesh::Mesh(const MeshDesc& desc): m_count(desc.index_count) {
 
 }
 
-void engine::Mesh::Draw() {
+void engine::Mesh::Draw() const {
     glBindVertexArray(m_vao);
     glDrawElements(GL_TRIANGLES, m_count, GL_UNSIGNED_INT, 0);
 }

@@ -10,6 +10,7 @@
 namespace engine {
     class Transform {
     public:
+        Transform();
         explicit Transform(const TransformDesc& desc);
 
         // Setters
