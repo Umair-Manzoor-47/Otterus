@@ -12,6 +12,7 @@ namespace engine {
         void Bind() const;
         ui32 GetProgram() const;
         void SetUniform(const std::string& name, const glm::mat4& matrix) const;
+        void SetUniform(const std::string& name, const glm::vec3& value) const;
 
     private:
         ui32 m_ShaderProgram;

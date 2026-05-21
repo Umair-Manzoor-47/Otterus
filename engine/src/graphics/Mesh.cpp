@@ -26,10 +26,18 @@ void engine::Mesh::initElementBuffer(ui32 indices[], size_t index_size) {
 // argument 5: 3 * sizeof(float) → STRIDE: total bytes per vertex (jump this much to get to next vertex)
 // argument 6: (void*)0       → OFFSET: where does this attribute start within the vertex (0 = beginning)
 void engine::Mesh::linkVertexAttributes() {
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    // position — location 0 
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float),  (void*)(3 * sizeof(float)));
+    // normal — location 1
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 
+        8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+
+    // texture coords — location 2
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 
+        8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 }
 engine::Mesh::Mesh(const MeshDesc& desc): m_count(desc.index_count) {
 

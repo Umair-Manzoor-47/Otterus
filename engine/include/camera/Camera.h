@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include <core/Common.h>
+#include <core/Common.h>
 
 namespace engine{
 	enum class ProjectionType { PERSPECTIVE, ORTHOGRAPHIC };
@@ -24,6 +25,10 @@ class Camera
 		const glm::vec3& GetRightVector() const { return m_right; }
 		const glm::mat4& GetProjectionMatrix() const { return m_projectionMatrix; }
 		const glm::mat4& GetViewMatrix() const { return m_viewMatrix; }
+		RenderCamera GetRenderCamera() const
+	        {
+        		return RenderCamera{m_projectionMatrix, m_viewMatrix, m_position};
+	        }
 	
 		void SetAspectRatio(float aspectRatio);
 		void SetHeight(float height);

@@ -6,6 +6,7 @@
 #include <game_object/GameObject.h>
 #include <graphics/GraphicsEngine.h>
 #include <camera/Camera.h>
+#include <core/Common.h>
 namespace engine
 {
     class Scene
@@ -14,7 +15,7 @@ namespace engine
         Scene() = default;
         void AddObject(std::unique_ptr<GameObject> object);
         void RemoveObject(const std::string& name);
-        void Render(GraphicsEngine& gfx, const Camera& camera);
+        void Render(GraphicsEngine& gfx, const RenderCamera& renderCamera, const RenderLight& light);
         
         GameObject* GetObject(const std::string& name);
         
