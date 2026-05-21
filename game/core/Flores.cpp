@@ -8,6 +8,7 @@
 #include <event/mouse/MouseMovedEvent.h>
 #include <graphics/Transform.h>
 #include <game_object/GameObject.h>
+#include <graphics/MeshLoader.h>
 
 void Flores::OnStart() {
     std::unique_ptr<engine::GameObject> obj = std::make_unique<engine::GameObject>("Test", engine::TransformDesc{
@@ -38,7 +39,7 @@ void Flores::OnStart() {
         "../assets/shaders/fragment_shader.glsl"
       });
     obj->SetShader(m_shader);
-    std::shared_ptr<engine::Mesh> m_mesh = std::make_shared<engine::Mesh>(engine::MeshDesc{vertices, sizeof(vertices), indices, 6});
+    std::shared_ptr<engine::Mesh> m_mesh = std::make_shared<engine::Mesh>(engine::MeshLoader::Load("../assets/Cube.obj"));
     obj->SetMesh(m_mesh);
     std::shared_ptr<engine::Texture> m_texture = std::make_shared<engine::Texture>("../assets/container.jpg");
     obj->SetTexture(m_texture);

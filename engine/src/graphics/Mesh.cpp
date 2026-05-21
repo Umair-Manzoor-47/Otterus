@@ -1,18 +1,36 @@
 ﻿
 #include <graphics/Mesh.h>
 
+
+engine::Mesh::Mesh(const MeshData& data)
+    : m_count(data.indices.size())
+{
+    initVertexArray();
+
+    initVertexBuffer(
+        data.vertices.data(),
+        data.vertices.size() * sizeof(float)
+    );
+
+    initElementBuffer(
+        data.indices.data(),
+        data.indices.size()
+    );
+
+    linkVertexAttributes();
+}
 void engine::Mesh::initVertexArray() {
     glGenVertexArrays(1, &m_vao);
     glBindVertexArray(m_vao);
 }
 
-void engine::Mesh::initVertexBuffer(float vertices[], size_t size) {
+void engine::Mesh::initVertexBuffer(const float* vertices, size_t size) {
     glGenBuffers(1, &m_vbo);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 }
 
-void engine::Mesh::initElementBuffer(ui32 indices[], size_t index_size) {
+void engine::Mesh::initElementBuffer(const ui32* indices, size_t index_size) {
     glGenBuffers(1, &m_ebo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_size * sizeof(ui32), indices, GL_STATIC_DRAW);
@@ -39,14 +57,7 @@ void engine::Mesh::linkVertexAttributes() {
         8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 }
-engine::Mesh::Mesh(const MeshDesc& desc): m_count(desc.index_count) {
 
-    initVertexArray();
-    initVertexBuffer(desc.vertices, desc.size);
-    initElementBuffer(desc.indices, desc.index_count);
-    linkVertexAttributes();
-
-}
 
 void engine::Mesh::Draw() const {
     glBindVertexArray(m_vao);

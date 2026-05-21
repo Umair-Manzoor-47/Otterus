@@ -28,12 +28,9 @@ namespace engine {
         std::string vertexPath;
         std::string fragmentPath;
     };
-    struct MeshDesc
-    {
-        f32*   vertices;
-        size_t size;
-        ui32*  indices;
-        i32 index_count;
+    struct MeshData {
+        std::vector<float> vertices;
+        std::vector<ui32> indices;
     };
 
     struct TransformDesc {
