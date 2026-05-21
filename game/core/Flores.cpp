@@ -5,12 +5,7 @@
 #include "Flores.h"
 #include <core/Logger.h>
 #include <event/keyboard/KeyPressedEvent.h>
-#include <event/keyboard/KeyReleasedEvent.h>
-#include <event/mouse/MouseButtonPressedEvent.h>
-#include <event/mouse/MouseButtonReleasedEvent.h>
 #include <event/mouse/MouseMovedEvent.h>
-#include <event/mouse/MouseScrolledEvent.h>
-#include <event/window/WindowResizeEvent.h>
 #include <graphics/Transform.h>
 #include <game_object/GameObject.h>
 
@@ -23,23 +18,20 @@ void Flores::OnStart() {
     
     m_camera = std::make_unique<engine::Camera>();
     m_input = &GetContext().GetInputSystem();
-    m_gfx   = &GetContext().GetGraphicsEngine();
+
     float vertices[] = {
-        //   x      y     z     u     v
-        0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
-        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-       -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-       -0.5f,  0.5f, 0.0f, 0.0f, 1.0f
-   };
+        // x      y      z     nx    ny    nz    u     v
+        0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+        0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+       -0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+       -0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f
+    };
+    // light position
+    
     unsigned int indices[] = {
         0, 1, 3,
         1, 2, 3
     };
-    // m_transform = std::make_unique<engine::Transform>(engine::TransformDesc{
-    // glm::vec3(0.f, 0.f, -3.f),  // position
-    // glm::vec3(0.f),               // rotation
-    // glm::vec3(1.f)                // scale
-    // });
     std::shared_ptr<engine::Shader> m_shader = std::make_shared<engine::Shader>();
     m_shader->Load({
         "../assets/shaders/vertex_shader.glsl",
@@ -51,42 +43,6 @@ void Flores::OnStart() {
     std::shared_ptr<engine::Texture> m_texture = std::make_shared<engine::Texture>("../assets/container.jpg");
     obj->SetTexture(m_texture);
     
-    // m_dispatcher.Subscribe<engine::KeyPressedEvent>([this](engine::KeyPressedEvent& e) {
-    //     std::string msg = "Key pressed: " + std::to_string(e.GetKeyCode());
-    //     LogInfo(msg.c_str());
-    // });
-
-    // m_dispatcher.Subscribe<engine::KeyReleasedEvent>([this](engine::KeyReleasedEvent& e) {
-    //     std::string msg = "Key released: " + std::to_string(e.GetKeyCode());
-    //     LogInfo(msg.c_str());
-    // });
-    
-    // m_dispatcher.Subscribe<engine::MouseMovedEvent>([this](engine::MouseMovedEvent& e)
-    // {
-    //     std::string msg = "Mouse Moved: " + std::to_string(e.GetX()) + ", " + std::to_string(e.GetY());
-    //     LogInfo(msg.c_str());
-    // });
-    // m_dispatcher.Subscribe<engine::MouseButtonPressedEvent>([this](engine::MouseButtonPressedEvent& e)
-    // {
-    //     std::string msg = "Mouse Button Pressed: " + std::to_string(e.GetButton());
-    //     LogInfo(msg.c_str());
-    // });
-    // m_dispatcher.Subscribe<engine::MouseButtonReleasedEvent>([this](engine::MouseButtonReleasedEvent& e)
-    // {
-    //     std::string msg = "Mouse Button Released: " + std::to_string(e.GetButton());
-    //     LogInfo(msg.c_str());
-    // });
-    // m_dispatcher.Subscribe<engine::MouseScrolledEvent>([this](engine::MouseScrolledEvent& e)
-    // {
-    //     std::string msg = "Mouse Scrolled Event: " + std::to_string(e.GetYOffset());
-    //     LogInfo(msg.c_str());
-    // });
-    //
-    // m_dispatcher.Subscribe<engine::WindowResizeEvent>([this](engine::WindowResizeEvent& e)
-    // {
-    //     std::string msg = "Window Resized: " + std::to_string(e.GetWidth());
-    //     LogInfo(msg.c_str());
-    // });
     GetContext().GetDispatcher().Subscribe<engine::MouseMovedEvent>([this](engine::MouseMovedEvent& e) {
     if (m_firstMouse) {
         m_lastMouseX = e.GetX();
@@ -166,7 +122,10 @@ void Flores::OnShutdown() {
 void Flores::OnRender()
 {   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    m_scene->Render(GetContext().GetGraphicsEngine(), *m_camera);
+    engine::RenderLight light;
+    light.position = glm::vec3(1.2f, 1.0f, 2.0f);
+    light.color = glm::vec3(1.0f);
+    m_scene->Render(GetContext().GetGraphicsEngine(), m_camera->GetRenderCamera(), light);
 }
 
 engine::WindowDesc Flores::GetWindowDesc()

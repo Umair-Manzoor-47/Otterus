@@ -30,7 +30,8 @@ engine::GameObject* engine::Scene::GetObject(const std::string& name)
     return nullptr;
 }
 
-void engine::Scene::Render(GraphicsEngine& gfx, const Camera& camera) {
+void engine::Scene::Render(GraphicsEngine& gfx, const RenderCamera& renderCamera, const RenderLight& light) {
+
     for (auto& object : m_gameObjects) {
         if (!object->HasMesh() || !object->HasShader())
             continue;
@@ -39,8 +40,9 @@ void engine::Scene::Render(GraphicsEngine& gfx, const Camera& camera) {
             *object->GetMesh(),
             *object->GetShader(),
             object->GetTexture().get(),
-            camera.GetProjectionMatrix(),
-            camera.GetViewMatrix(), 
-            object->GetTransform().GetModelMatrix());
+            renderCamera,
+            light,
+            object->GetTransform().GetModelMatrix()
+            );
     }
 }

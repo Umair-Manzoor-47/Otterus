@@ -3,6 +3,7 @@
 //
 #pragma once
 #include <core/Core.h>
+#include <core/Common.h>
 #include <fstream>
 #include <sstream>
 
@@ -22,8 +23,8 @@ namespace engine {
             const Mesh& mesh,
             const Shader& shader,
             const Texture* texture,
-            const glm::mat4& projection,
-            const glm::mat4& view,
+            const RenderCamera& camera,
+            const RenderLight& light,
             const glm::mat4& model
         );
     private:

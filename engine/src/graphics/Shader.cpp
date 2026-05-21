@@ -84,7 +84,7 @@ void engine::Shader::SetUniform(const std::string &name, const glm::mat4 &matrix
 
     if (location == -1)
     {
-        LogWarning("Uniform not found: {}");
+        LogWarning("Uniform not found");
         return;
     }
 
@@ -94,4 +94,13 @@ void engine::Shader::SetUniform(const std::string &name, const glm::mat4 &matrix
         GL_FALSE,
         glm::value_ptr(matrix)
     );
+}
+
+void engine::Shader::SetUniform(const std::string& name, const glm::vec3& value) const {
+    GLint location = glGetUniformLocation(m_ShaderProgram, name.c_str());
+    if (location == -1) {
+        LogWarning("Uniform not found: {}");
+        return;
+    }
+    glUniform3fv(location, 1, glm::value_ptr(value));
 }
