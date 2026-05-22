@@ -15,7 +15,7 @@ void engine::GameObject::SetShader(std::shared_ptr<Shader> shader)
     m_shader = shader;
 }
 
-void engine::GameObject::SetTexture(std::shared_ptr<Texture> texture)
+void engine::GameObject::SetMaterial(std::shared_ptr<Material> material)
 {
-    m_texture = texture;
+    m_material = material;
 }

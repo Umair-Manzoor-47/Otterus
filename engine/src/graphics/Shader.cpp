@@ -104,3 +104,9 @@ void engine::Shader::SetUniform(const std::string& name, const glm::vec3& value)
     }
     glUniform3fv(location, 1, glm::value_ptr(value));
 }
+
+void engine::Shader::SetUniform(const std::string& name, float value) const {
+    GLint location = glGetUniformLocation(m_ShaderProgram, name.c_str());
+    if (location == -1) return;
+    glUniform1f(location, value);
+}

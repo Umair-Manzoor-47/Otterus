@@ -9,6 +9,7 @@
 #include <graphics/Transform.h>
 #include <game_object/GameObject.h>
 #include <graphics/MeshLoader.h>
+#include <graphics/Material.h>
 
 void Flores::OnStart() {
     std::unique_ptr<engine::GameObject> obj = std::make_unique<engine::GameObject>("Test", engine::TransformDesc{
@@ -39,11 +40,16 @@ void Flores::OnStart() {
         "../assets/shaders/fragment_shader.glsl"
       });
     obj->SetShader(m_shader);
-    std::shared_ptr<engine::Mesh> m_mesh = std::make_shared<engine::Mesh>(engine::MeshLoader::Load("../assets/Cube.obj"));
+    auto meshData = engine::MeshLoader::Load("../assets/cube/Cube.obj");
+    auto m_mesh = std::make_shared<engine::Mesh>(meshData);
     obj->SetMesh(m_mesh);
-    std::shared_ptr<engine::Texture> m_texture = std::make_shared<engine::Texture>("../assets/container.jpg");
-    obj->SetTexture(m_texture);
     
+    
+    obj->SetMaterial(meshData.material);
+    LogInfo(("GameObject material color: " + 
+    std::to_string(obj->GetMaterial()->GetDiffuseColor().r)).c_str());
+    m_scene = std::make_unique<engine::Scene>();
+    m_scene->AddObject(std::move(obj));
     GetContext().GetDispatcher().Subscribe<engine::MouseMovedEvent>([this](engine::MouseMovedEvent& e) {
     if (m_firstMouse) {
         m_lastMouseX = e.GetX();
@@ -65,19 +71,6 @@ void Flores::OnStart() {
     m_camera->SetRotation(m_yaw, m_pitch);
     });
     
-    auto obj2 = std::make_unique<engine::GameObject>("Test2", engine::TransformDesc{
-    glm::vec3(2.f, 0.f, -3.f),  // offset position
-    glm::vec3(0.f),
-    glm::vec3(1.f)
-});
-    // share same mesh/shader/texture
-    obj2->SetShader(m_shader);
-    obj2->SetMesh(m_mesh);
-    obj2->SetTexture(m_texture);
-
-    m_scene = std::make_unique<engine::Scene>();
-    m_scene->AddObject(std::move(obj));
-    m_scene->AddObject(std::move(obj2));
 }
 
 void Flores::OnUpdate(float deltaTime)

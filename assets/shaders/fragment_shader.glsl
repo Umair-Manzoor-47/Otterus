@@ -9,9 +9,23 @@ uniform vec3 lightPos;
 uniform vec3 lightColor;
 uniform vec3 viewPos;
 
+// material uniforms
+uniform bool useTexture;
+uniform vec3 diffuseColor;
+uniform float shininess;
+uniform float specularStrength;
+
 out vec4 FragColor;
 
 void main() {
+    // get object color from texture or material color
+    vec3 objectColor;
+    if (useTexture) {
+        objectColor = texture(texture1, TexCoord).rgb;
+    } else {
+        objectColor = diffuseColor;
+    }
+
     // ambient
     float ambientStrength = 0.1;
     vec3 ambient = ambientStrength * lightColor;
@@ -25,11 +39,9 @@ void main() {
     // specular
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32.0);
-    vec3 specular = 0.1 * spec * lightColor;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+    vec3 specular = specularStrength * spec * lightColor;
 
-    // combine
-    vec3 objectColor = texture(texture1, TexCoord).rgb;
     vec3 result = (ambient + diffuse + specular) * objectColor;
     FragColor = vec4(result, 1.0);
 }

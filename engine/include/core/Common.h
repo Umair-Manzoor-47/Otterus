@@ -31,6 +31,7 @@ namespace engine {
     struct MeshData {
         std::vector<float> vertices;
         std::vector<ui32> indices;
+        std::shared_ptr<Material> material;
     };
 
     struct TransformDesc {

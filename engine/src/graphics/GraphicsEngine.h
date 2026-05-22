@@ -22,7 +22,7 @@ namespace engine {
         void Draw(
             const Mesh& mesh,
             const Shader& shader,
-            const Texture* texture,
+            const Material* material,
             const RenderCamera& camera,
             const RenderLight& light,
             const glm::mat4& model
