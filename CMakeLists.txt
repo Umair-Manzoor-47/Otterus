@@ -22,6 +22,7 @@ target_include_directories(Otterus PRIVATE
         ${CMAKE_SOURCE_DIR}/vendor/glad/include
         ${CMAKE_SOURCE_DIR}/vendor/glad/src
         ${CMAKE_SOURCE_DIR}/vendor/glm
+        ${CMAKE_SOURCE_DIR}/vendor/tiny_obj_loader
 
 )
 

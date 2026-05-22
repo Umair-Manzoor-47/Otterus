@@ -7,7 +7,7 @@ namespace engine
     class Mesh
     {
     public:
-        Mesh(const MeshDesc& desc);
+        Mesh(const MeshData& meshData);
         void Draw() const;
     private:
         ui32 m_vao = 0;
@@ -16,8 +16,8 @@ namespace engine
         i32 m_count = 0;
 
         void initVertexArray();
-        void initVertexBuffer(float vertices[], size_t size);
-        void initElementBuffer(ui32 indices[], size_t index_size);
+        void initVertexBuffer(const float* vertices, size_t size);
+        void initElementBuffer(const ui32* indices, size_t index_size);
         void linkVertexAttributes();
     };
     
