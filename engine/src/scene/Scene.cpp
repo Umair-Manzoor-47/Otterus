@@ -39,7 +39,7 @@ void engine::Scene::Render(GraphicsEngine& gfx, const RenderCamera& renderCamera
         gfx.Draw(
             *object->GetMesh(),
             *object->GetShader(),
-            object->GetTexture().get(),
+            object->GetMaterial().get(),
             renderCamera,
             light,
             object->GetTransform().GetModelMatrix()

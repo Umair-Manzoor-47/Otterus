@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <core/Logger.h>
 
+#include <graphics/Material.h>
+
 // Layout Produced
 // [x y z nx ny nz u v]
 engine::MeshData engine::MeshLoader::Load(const std::string& path)
@@ -13,14 +15,17 @@ engine::MeshData engine::MeshLoader::Load(const std::string& path)
 
     std::string warn;
     std::string err;
-
+    // TODO: Fix Material lookup
+    std::string baseDir = path.substr(0, path.find_last_of("/\\") + 1);
+    
     bool success = tinyobj::LoadObj(
         &attrib,
         &shapes,
         &materials,
         &warn,
         &err,
-        path.c_str()
+        path.c_str(),
+        baseDir.c_str()
     );
 
     if (!warn.empty())
@@ -79,6 +84,19 @@ engine::MeshData engine::MeshLoader::Load(const std::string& path)
             meshData.vertices.push_back(v);
 
             meshData.indices.push_back(static_cast<ui32>(meshData.indices.size()));
+        }
+    }
+    meshData.material = std::make_shared<Material>();
+    if (!materials.empty()) {
+        if (!materials[0].diffuse_texname.empty()) {
+            auto texture = std::make_shared<Texture>(baseDir + materials[0].diffuse_texname);
+            meshData.material->SetDiffuseTexture(texture);
+        } else {
+            meshData.material->SetDiffuseColor(glm::vec3(
+                materials[0].diffuse[0],
+                materials[0].diffuse[1],
+                materials[0].diffuse[2]
+            ));
         }
     }
 

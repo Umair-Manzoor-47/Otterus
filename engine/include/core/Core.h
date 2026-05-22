@@ -14,6 +14,7 @@ namespace engine
     class Dispatcher;
     class GraphicsEngine;
     class InputSystem;
+    class Material;
     // class GraphicsDevice;
     // class Logger;
     // class SwapChain;
