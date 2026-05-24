@@ -11,7 +11,10 @@
 #include <graphics/MeshLoader.h>
 #include <graphics/Material.h>
 
+#include <resource_manager/ResourceManager.h>
+
 void Flores::OnStart() {
+    std::unique_ptr<engine::ResourceManager> rm = std::make_unique<engine::ResourceManager>();
     std::unique_ptr<engine::GameObject> obj = std::make_unique<engine::GameObject>("Test", engine::TransformDesc{
     glm::vec3(0.f, 0.f, -3.f),
     glm::vec3(0.f),
@@ -34,14 +37,11 @@ void Flores::OnStart() {
         0, 1, 3,
         1, 2, 3
     };
-    std::shared_ptr<engine::Shader> m_shader = std::make_shared<engine::Shader>();
-    m_shader->Load({
-        "../assets/shaders/vertex_shader.glsl",
-        "../assets/shaders/fragment_shader.glsl"
-      });
+    const std::shared_ptr<engine::Shader> m_shader = rm->LoadShader( "../assets/shaders/vertex_shader.glsl",
+        "../assets/shaders/fragment_shader.glsl");
     obj->SetShader(m_shader);
     auto meshData = engine::MeshLoader::Load("../assets/cube/Cube.obj");
-    auto m_mesh = std::make_shared<engine::Mesh>(meshData);
+    auto m_mesh = rm->Load<engine::Mesh>("../assets/cube/Cube.obj");
     obj->SetMesh(m_mesh);
     
     
