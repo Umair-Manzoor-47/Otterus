@@ -11,8 +11,10 @@ void engine::Application::Run() {
     Init();
     OnStart();
     while (m_Running) {
+        OnFrameBegin();
         OnUpdate(calculateDeltaTime());
         OnRender();
+        OnFrameEnd();
         m_context->GetWindow().Update();
     }
 

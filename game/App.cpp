@@ -2,11 +2,13 @@
 // Created by umair on 5/8/2026.
 //
 
+#include <Editor.h>
 #include "core/Flores.h"
 
 int main() {
 
-    Flores flores;
-    flores.Run();
+    editor::Editor editor;
+    editor.SetGame(std::make_unique<Flores>());
+    editor.Run();
     return 0;
 }

@@ -19,10 +19,14 @@ namespace engine {
         virtual void OnUpdate(float deltaTime) = 0;
         virtual void OnShutdown() = 0;
         virtual void OnRender() = 0;
-        virtual WindowDesc GetWindowDesc() = 0;
+        virtual void OnFrameBegin() = 0;
+        virtual void OnFrameEnd() = 0;
+        virtual WindowDesc GetWindowDesc() {
+            return WindowDesc{800, 600, "Otterus"};
+        }
 
 
-        void Init();
+        virtual void Init();
         void Run();
 
     protected:

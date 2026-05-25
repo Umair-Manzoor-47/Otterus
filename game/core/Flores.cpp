@@ -10,11 +10,12 @@
 #include <game_object/GameObject.h>
 #include <graphics/MeshLoader.h>
 #include <graphics/Material.h>
-
 #include <resource_manager/ResourceManager.h>
 
+Flores::Flores() {}
+
 void Flores::OnStart() {
-    std::unique_ptr<engine::ResourceManager> rm = std::make_unique<engine::ResourceManager>();
+    m_resourceManager = std::make_unique<engine::ResourceManager>();
     std::unique_ptr<engine::GameObject> obj = std::make_unique<engine::GameObject>("Test", engine::TransformDesc{
     glm::vec3(0.f, 0.f, -3.f),
     glm::vec3(0.f),
@@ -37,11 +38,11 @@ void Flores::OnStart() {
         0, 1, 3,
         1, 2, 3
     };
-    const std::shared_ptr<engine::Shader> m_shader = rm->LoadShader( "../assets/shaders/vertex_shader.glsl",
+    const std::shared_ptr<engine::Shader> m_shader = m_resourceManager->LoadShader( "../assets/shaders/vertex_shader.glsl",
         "../assets/shaders/fragment_shader.glsl");
     obj->SetShader(m_shader);
     auto meshData = engine::MeshLoader::Load("../assets/cube/Cube.obj");
-    auto m_mesh = rm->Load<engine::Mesh>("../assets/cube/Cube.obj");
+    auto m_mesh = m_resourceManager->Load<engine::Mesh>("../assets/cube/Cube.obj");
     obj->SetMesh(m_mesh);
     
     
@@ -122,12 +123,3 @@ void Flores::OnRender()
     m_scene->Render(GetContext().GetGraphicsEngine(), m_camera->GetRenderCamera(), light);
 }
 
-engine::WindowDesc Flores::GetWindowDesc()
-{
-   return engine::WindowDesc{
-        800,
-        600,
-        "Otterus"
-    };
-    
-}
