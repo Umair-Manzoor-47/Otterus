@@ -9,16 +9,19 @@
 #include <GLFW/glfw3.h>
 #include <graphics/Transform.h>
 #include <scene/Scene.h>
+#include <IGame.h>
+#include <resource_manager/ResourceManager.h>
 
-class Flores : public engine::Application {
+class Flores : public editor::IGame {
 public:
+    Flores();
     void OnStart() override;
     void OnUpdate(float deltaTime) override;
     void OnShutdown() override;
     void OnRender() override;
-    engine::WindowDesc GetWindowDesc() override;
     
 private:
+    std::unique_ptr<engine::ResourceManager> m_resourceManager;
     engine::InputSystem* m_input = nullptr;
     engine::GraphicsEngine* m_gfx = nullptr;
     std::unique_ptr<engine::Camera> m_camera;
