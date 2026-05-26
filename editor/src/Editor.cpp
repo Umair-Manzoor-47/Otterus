@@ -8,30 +8,29 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
+#include <core/Logger.h>
+#include <panels/SceneHierarchyPanel.h>
+
 
 void editor::Editor::OnStart() {
-currentGame->OnStart();
+m_currentGame->OnStart();
+    intializePanels();
 
 }
 
 void editor::Editor::OnUpdate(float deltaTime) {
-    currentGame->OnUpdate(deltaTime);
+    m_currentGame->OnUpdate(deltaTime);
 }
 
 void editor::Editor::OnRender() {
-    currentGame->OnRender();
-    ImGui::Begin("Scene");
-    ImGui::Text("Scene Hierarchy");
-    ImGui::End();
+    m_currentGame->OnRender();
+    m_sceneHierarchy->OnRender();
 
-    ImGui::Begin("Properties");
-    ImGui::Text("Select an object");
-    ImGui::End();
 }
 
 void editor::Editor::OnShutdown() {
     EndImGui();
-    currentGame->OnShutdown();
+    m_currentGame->OnShutdown();
 }
 
 void editor::Editor::BeginImGui() {
@@ -46,6 +45,13 @@ void editor::Editor::EndImGui() {
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
+
+void editor::Editor::intializePanels() {
+    auto scene = m_currentGame->GetScene();
+    LogInfo(scene ? "Scene is valid" : "Scene is NULL");
+    m_sceneHierarchy = std::make_unique<SceneHierarchyPanel>("Scene Hierarchy", scene);
+}
+
 void editor::Editor::OnFrameBegin() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
@@ -60,12 +66,13 @@ void editor::Editor::OnFrameEnd() {
 void editor::Editor::Init() {
     Application::Init();
     BeginImGui();
-    currentGame->m_engineContext = &GetContext();
+    m_currentGame->m_engineContext = &GetContext();
+
 
 
 }
 
 void editor::Editor::SetGame(std::unique_ptr<IGame> game) {
-    currentGame = std::move(game);
+    m_currentGame = std::move(game);
 }
 

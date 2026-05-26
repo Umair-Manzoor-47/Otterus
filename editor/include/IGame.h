@@ -5,6 +5,8 @@
 
 
 #pragma once
+#include <scene/Scene.h>
+
 
 namespace editor {
     class IGame {
@@ -15,6 +17,7 @@ namespace editor {
         virtual void OnUpdate(float dt) = 0;
         virtual void OnRender() = 0;
         virtual void OnShutdown() = 0;
+        virtual engine::Scene *GetScene() = 0;
         engine::EngineContext* m_engineContext = nullptr;
         engine::EngineContext& GetContext() { return *m_engineContext; }
 

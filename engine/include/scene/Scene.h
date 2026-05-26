@@ -18,6 +18,10 @@ namespace engine
         void Render(GraphicsEngine& gfx, const RenderCamera& renderCamera, const RenderLight& light);
         
         GameObject* GetObject(const std::string& name);
+        const std::vector<std::unique_ptr<GameObject>>& GetObjects() const
+        {
+            return m_gameObjects;
+        }
         
     private:
         std::vector<std::unique_ptr<GameObject>> m_gameObjects;
