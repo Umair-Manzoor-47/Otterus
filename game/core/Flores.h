@@ -19,6 +19,7 @@ public:
     void OnUpdate(float deltaTime) override;
     void OnShutdown() override;
     void OnRender() override;
+    engine::Scene* GetScene() override { return m_scene.get(); }
     
 private:
     std::unique_ptr<engine::ResourceManager> m_resourceManager;

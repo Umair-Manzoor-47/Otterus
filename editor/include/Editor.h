@@ -6,6 +6,7 @@
 #pragma once
 #include <entrypoint/Application.h>
 #include <IGame.h>
+#include <panels/Panel.h>
 
 namespace editor {
     class Editor : public engine::Application {
@@ -25,6 +26,9 @@ namespace editor {
         void EndImGui();
 
     private:
-        std::unique_ptr<IGame> currentGame;
+        std::unique_ptr<IGame> m_currentGame;
+        std::unique_ptr<Panel> m_sceneHierarchy;
+
+        void intializePanels();
     };
 } // editor
