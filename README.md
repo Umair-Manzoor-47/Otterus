@@ -1,19 +1,20 @@
 C++ Game Engine: Otterus
 
-RoadMap: 
-[ ] Logging
+RoadMap:
+
+### Logging
 - [x] Basic Logger
 - [x] Logging based on Type
 - [ ] spdLog integration
-[ ] Shaders
+### Shaders
 - [x] Vertex Shader
 - [x] Fragment Shader
 - [x] Shader Compilation from files
 - [ ] Advanced Shaders
-[ ] Input System
+### Input System
 - [x] Mouse Events
 - [x] Keyboard Events
-[ ] Window Events
+### Window System
 - [x] Window creation from game
 - [x] Window Events
 - [ ] Window Resizing
