@@ -28,5 +28,9 @@ RoadMap:
 - [x] View port
 - [ ] Grid on Viewport
 
+### Resource Manager
+- [x] Load Mesh, Shader, Texture resources 
+- [x] Resource Caching
+- [ ] Advance Resource Manager
 
       
