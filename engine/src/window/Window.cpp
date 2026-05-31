@@ -13,7 +13,7 @@ void engine::Window::Init() {
     m_handle = glfwCreateWindow(m_width, m_height, m_title, NULL, NULL);
     if (m_handle == NULL)
     {
-        LogError("Failed to create GLFW window");
+        CORE_ERROR("Failed to create GLFW window");
         glfwTerminate();
         return;
     }
@@ -24,7 +24,7 @@ void engine::Window::Init() {
     
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-         LogError("Failed to initialize GLAD");
+         CORE_ERROR("Failed to initialize GLAD");
         return;
     }
     glEnable(GL_DEPTH_TEST);

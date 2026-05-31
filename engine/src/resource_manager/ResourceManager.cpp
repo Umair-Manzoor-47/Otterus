@@ -29,7 +29,7 @@ template<>
 std::shared_ptr<engine::Mesh> engine::ResourceManager::Load<engine::Mesh>(const std::string& path)
 {
     if (path.empty()) {
-        LogError("ResourceManager: empty path provided");
+        CORE_ERROR("ResourceManager: empty path provided");
         return nullptr;
     }
     if (auto mt = m_meshes.find(path); mt != m_meshes.end())
@@ -46,7 +46,7 @@ std::shared_ptr<engine::Mesh> engine::ResourceManager::Load<engine::Mesh>(const 
 std::shared_ptr<engine::Shader> engine::ResourceManager::LoadShader(const std::string& vertexPath, const std::string& fragmentPath)
 {
     if (fragmentPath.empty() || vertexPath.empty()) {
-        LogError("ResourceManager: empty path provided");
+        CORE_ERROR("ResourceManager: empty path provided");
         return nullptr;
     }
     std::string key = vertexPath + "|" + fragmentPath;

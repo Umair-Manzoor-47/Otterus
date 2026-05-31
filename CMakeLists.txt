@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Third party
 add_subdirectory(vendor/glfw)
+add_subdirectory(vendor/spdlog)
 
 # Collect all source files
 file(GLOB_RECURSE SOURCES
@@ -31,6 +32,7 @@ target_include_directories(Otterus PRIVATE
         ${CMAKE_SOURCE_DIR}/editor/include
         ${CMAKE_SOURCE_DIR}/editor/src
         ${CMAKE_SOURCE_DIR}/vendor
+        ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
         ${CMAKE_SOURCE_DIR}/vendor/glad/include
         ${CMAKE_SOURCE_DIR}/vendor/glad/src
         ${CMAKE_SOURCE_DIR}/vendor/glm
