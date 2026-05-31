@@ -5,7 +5,7 @@ RoadMap:
 ### Logging
 - [x] Basic Logger
 - [x] Logging based on Type
-- [ ] spdLog integration
+- [x] spdLog integration
 ### Shaders
 - [x] Vertex Shader
 - [x] Fragment Shader
