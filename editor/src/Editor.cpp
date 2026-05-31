@@ -48,7 +48,6 @@ void editor::Editor::EndImGui() {
 
 void editor::Editor::intializePanels() {
     auto scene = m_currentGame->GetScene();
-    LogInfo(scene ? "Scene is valid" : "Scene is NULL");
     m_sceneHierarchy = std::make_unique<SceneHierarchyPanel>("Scene Hierarchy", scene);
 }
 

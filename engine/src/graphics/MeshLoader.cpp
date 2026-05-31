@@ -22,9 +22,9 @@ engine::MeshData engine::MeshLoader::Load(const std::string& path)
         path.c_str(), baseDir.c_str()
     );
 
-    if (!warn.empty()) LogWarning(warn.c_str());
-    if (!err.empty())  LogError(err.c_str());
-    if (!success)      LogError("Failed to load OBJ");
+    if (!warn.empty()) CORE_WARN(warn.c_str());
+    if (!err.empty())  CORE_ERROR(err.c_str());
+    if (!success)      CORE_ERROR("Failed to load OBJ");
 
     MeshData meshData;
     std::unordered_map<std::string, ui32> uniqueVertices;

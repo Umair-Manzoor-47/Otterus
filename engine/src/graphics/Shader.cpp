@@ -28,7 +28,7 @@ std::string engine::Shader::readFile(const std::string &path) {
         std::ifstream file(path);
 
         if (!file.is_open()) {
-            LogError("Failed to open file");
+            CORE_ERROR("Failed to open file");
         }
 
         std::stringstream buffer;
@@ -50,7 +50,7 @@ void engine::Shader::compile(const std::string &vertexCode, const std::string &f
         if (!m_Success) {
             char infoLog[512];
             glGetProgramInfoLog(m_ShaderProgram, 512, NULL, infoLog);
-            LogError(infoLog);
+            CORE_ERROR(infoLog);
         }
 }
 
@@ -65,7 +65,7 @@ engine::ui32 engine::Shader::createShader(const std::string &code, GLenum type) 
     if (!m_Success) {
         char infoLog[512];
         glGetShaderInfoLog(shader, 512, NULL, infoLog);
-        LogError(infoLog);
+        CORE_ERROR(infoLog);
     }
     return shader;
 }
@@ -84,7 +84,7 @@ void engine::Shader::SetUniform(const std::string &name, const glm::mat4 &matrix
 
     if (location == -1)
     {
-        LogWarning("Uniform not found");
+        CORE_WARN("Uniform not found");
         return;
     }
 
@@ -99,7 +99,7 @@ void engine::Shader::SetUniform(const std::string &name, const glm::mat4 &matrix
 void engine::Shader::SetUniform(const std::string& name, const glm::vec3& value) const {
     GLint location = glGetUniformLocation(m_ShaderProgram, name.c_str());
     if (location == -1) {
-        LogWarning("Uniform not found: {}");
+        CORE_WARN("Uniform not found: {}");
         return;
     }
     glUniform3fv(location, 1, glm::value_ptr(value));

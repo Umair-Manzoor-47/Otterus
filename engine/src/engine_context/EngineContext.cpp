@@ -1,7 +1,9 @@
 ﻿#include <engine_context/EngineContext.h>
+#include <core/Logger.h>
 
 engine::EngineContext::EngineContext(const WindowDesc& window_desc){
-    
+
+    engine::Logger::Init();
     m_window = std::make_unique<Window>(
         window_desc, 
         m_dispatcher

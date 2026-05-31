@@ -33,7 +33,7 @@ void engine::Texture::load(const std::string &path) {
         glGenerateMipmap(GL_TEXTURE_2D);
         stbi_image_free(data);
     } else {
-        LogError("Failed to load texture.");
+        CORE_ERROR("Failed to load texture.");
     }
 }
 

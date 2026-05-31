@@ -15,6 +15,7 @@
 Flores::Flores() {}
 
 void Flores::OnStart() {
+    OT_INFO("Flores Start.");
     m_resourceManager = std::make_unique<engine::ResourceManager>();
     std::unique_ptr<engine::GameObject> obj = std::make_unique<engine::GameObject>("Test", engine::TransformDesc{
     glm::vec3(0.f, 0.f, -3.f),
@@ -47,8 +48,6 @@ void Flores::OnStart() {
     
     
     obj->SetMaterial(meshData.material);
-    LogInfo(("GameObject material color: " + 
-    std::to_string(obj->GetMaterial()->GetDiffuseColor().r)).c_str());
     m_scene = std::make_unique<engine::Scene>();
     m_scene->AddObject(std::move(obj));
     GetContext().GetDispatcher().Subscribe<engine::MouseMovedEvent>([this](engine::MouseMovedEvent& e) {
@@ -102,16 +101,16 @@ void Flores::OnUpdate(float deltaTime)
         m_camera->SetPosition(m_camera->GetPosition() + m_camera->GetRightVector() * speed * deltaTime);
         
     }
-    engine::GameObject* obj = m_scene->GetObject("Test");
-    if (obj) {
-        obj->GetTransform().SetRotation(
-            glm::vec3(0.f, glfwGetTime() * 50.f, 0.f)
-        );
-    }
+    // engine::GameObject* obj = m_scene->GetObject("Test");
+    // if (obj) {
+    //     obj->GetTransform().SetRotation(
+    //         glm::vec3(0.f, glfwGetTime() * 50.f, 0.f)
+    //     );
+    // }
 }
 
 void Flores::OnShutdown() {
-    LogInfo("Flores shutdown.");
+    OT_INFO("Flores shutdown.");
 }
 
 void Flores::OnRender()

@@ -2,30 +2,34 @@
 // Created by umair on 5/6/2026.
 //
 #pragma once
-#include <iostream>
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
+#include <memory>
+#include <spdlog/spdlog.h>
 
 namespace engine {
 
-    enum class LogLevel {
-        Info,
-        Warning,
-        Error,
-    };
-
     class Logger {
     public:
-        Logger() = default;
+        static void Init();
 
-        static void Log(LogLevel level, const char* message);
-        static void LogContext(LogLevel level, const char* file, int line, const char* message);
-
+        static std::shared_ptr<spdlog::logger>& GetCoreLogger(){ return m_coreLogger; }
+        static std::shared_ptr<spdlog::logger>& GetClientLogger(){ return m_clientLogger; }
     private:
-        static const char* GetPrefix(LogLevel level);
+        static std::shared_ptr<spdlog::logger> m_coreLogger;
+        static std::shared_ptr<spdlog::logger> m_clientLogger;
     };
 }
 
-#define LogError(message) engine::Logger::LogContext(engine::LogLevel::Error, __FILE__, __LINE__, message)
+// Core log macros
+#define CORE_TRACE(...)   SPDLOG_LOGGER_TRACE(::engine::Logger::GetCoreLogger(), __VA_ARGS__)
+#define CORE_INFO(...)    SPDLOG_LOGGER_INFO(::engine::Logger::GetCoreLogger(), __VA_ARGS__)
+#define CORE_WARN(...)    SPDLOG_LOGGER_WARN(::engine::Logger::GetCoreLogger(), __VA_ARGS__)
+#define CORE_ERROR(...)   SPDLOG_LOGGER_ERROR(::engine::Logger::GetCoreLogger(), __VA_ARGS__)
+#define CORE_FATAL(...)   SPDLOG_LOGGER_CRITICAL(::engine::Logger::GetCoreLogger(), __VA_ARGS__)
 
-#define LogWarning(message) engine::Logger::LogContext(engine::LogLevel::Warning, __FILE__, __LINE__, message)
-
-#define LogInfo(message) engine::Logger::LogContext(engine::LogLevel::Info, __FILE__, __LINE__, message)
+// Client log macros
+#define OT_TRACE(...)     SPDLOG_LOGGER_TRACE(::engine::Logger::GetClientLogger(), __VA_ARGS__)
+#define OT_INFO(...)      SPDLOG_LOGGER_INFO(::engine::Logger::GetClientLogger(), __VA_ARGS__)
+#define OT_WARN(...)      SPDLOG_LOGGER_WARN(::engine::Logger::GetClientLogger(), __VA_ARGS__)
+#define OT_ERROR(...)     SPDLOG_LOGGER_ERROR(::engine::Logger::GetClientLogger(), __VA_ARGS__)
+#define OT_FATAL(...)     SPDLOG_LOGGER_CRITICAL(::engine::Logger::GetClientLogger(), __VA_ARGS__)
