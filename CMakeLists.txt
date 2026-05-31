@@ -6,7 +6,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Third party
 add_subdirectory(vendor/glfw)
-add_subdirectory(vendor/spdlog)
 
 # Collect all source files
 file(GLOB_RECURSE SOURCES
