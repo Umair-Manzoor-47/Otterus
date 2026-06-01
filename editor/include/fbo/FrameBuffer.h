@@ -1,27 +1,30 @@
 ﻿#pragma once
+#include <core/Core.h>
 
-class Framebuffer {
-public:
-	// Takes size
-    Framebuffer(ui32 width, ui32 height);
-    ~Framebuffer();      
+namespace editor {
+	class FrameBuffer {
+	public:
+		// Takes size
+		FrameBuffer(engine::ui32 width, engine::ui32 height);
+		~FrameBuffer();
 
-	// Either Render to current attached FrameBuffer OR Screen
-    void Bind();             
-    void Unbind();           
-    void Resize(ui32 width, ui32 height); 
+		// Either Render to current attached FrameBuffer OR Screen
+		void Bind();
+		void Unbind();
+		void Resize(engine::ui32 width, engine::ui32 height);
 
-	// Image/Panel ID
-    ui32 GetTextureID() const; 
-    ui32 GetWidth() const;
-    ui32 GetHeight() const;
+		// Image/Panel ID
+		engine::ui32 GetTextureID() const;
+		engine::ui32 GetWidth() const;
+		engine::ui32 GetHeight() const;
 
-private:
-    ui32 m_fbo = 0;        
-    ui32 m_colorAttachment = 0; 
-    ui32 m_depthAttachment = 0;  
-    ui32 m_width, m_height;
+	private:
+		engine::ui32 m_fbo = 0;
+		engine::ui32 m_colorAttachment = 0;
+		engine::ui32 m_depthAttachment = 0;
+		engine::ui32 m_width, m_height;
 
-    void create();           
-    void destroy();     
-};
+		void create();
+		void destroy();
+	};
+}
