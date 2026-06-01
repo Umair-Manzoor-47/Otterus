@@ -15,6 +15,7 @@
 Flores::Flores() {}
 
 void Flores::OnStart() {
+
     OT_INFO("Flores Start.");
     m_resourceManager = std::make_unique<engine::ResourceManager>();
     std::unique_ptr<engine::GameObject> obj = std::make_unique<engine::GameObject>("Test", engine::TransformDesc{
@@ -26,19 +27,7 @@ void Flores::OnStart() {
     m_camera = std::make_unique<engine::Camera>();
     m_input = &GetContext().GetInputSystem();
 
-    float vertices[] = {
-        // x      y      z     nx    ny    nz    u     v
-        0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-        0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-       -0.5f, -0.5f,  0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-       -0.5f,  0.5f,  0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 1.0f
-    };
-    // light position
     
-    unsigned int indices[] = {
-        0, 1, 3,
-        1, 2, 3
-    };
     const std::shared_ptr<engine::Shader> m_shader = m_resourceManager->LoadShader( "../assets/shaders/vertex_shader.glsl",
         "../assets/shaders/fragment_shader.glsl");
     obj->SetShader(m_shader);
@@ -122,3 +111,7 @@ void Flores::OnRender()
     m_scene->Render(GetContext().GetGraphicsEngine(), m_camera->GetRenderCamera(), light);
 }
 
+void Flores::SetEngineContext(engine::EngineContext* context)
+{
+    m_engineContext = context;
+}

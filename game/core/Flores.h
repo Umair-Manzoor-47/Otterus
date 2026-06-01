@@ -19,9 +19,13 @@ public:
     void OnUpdate(float deltaTime) override;
     void OnShutdown() override;
     void OnRender() override;
+    void SetEngineContext(engine::EngineContext* context) override;
+    engine::EngineContext& GetContext() override { return *m_engineContext; }
+    
     engine::Scene* GetScene() override { return m_scene.get(); }
     
 private:
+    engine::EngineContext* m_engineContext = nullptr;
     std::unique_ptr<engine::ResourceManager> m_resourceManager;
     engine::InputSystem* m_input = nullptr;
     engine::GraphicsEngine* m_gfx = nullptr;

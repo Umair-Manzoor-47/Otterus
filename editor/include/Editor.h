@@ -11,6 +11,7 @@
 namespace editor {
     class Editor : public engine::Application {
     public:
+        engine::WindowDesc GetWindowDesc() override;
         void OnStart() override;
         void OnUpdate(float deltaTime) override;
         void OnRender() override;

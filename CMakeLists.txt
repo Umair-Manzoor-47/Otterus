@@ -4,6 +4,10 @@ project(Otterus)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+if (MSVC)
+    add_compile_options(/utf-8)
+endif() 
+
 # Third party
 add_subdirectory(vendor/glfw)
 
