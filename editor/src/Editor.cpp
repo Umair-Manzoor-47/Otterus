@@ -4,14 +4,17 @@
 //
 
 #include <Editor.h>
-#include <imgui.h>
+#include <imgui/imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
 #include <core/Logger.h>
 #include <panels/SceneHierarchyPanel.h>
 
-
+engine::WindowDesc editor::Editor::GetWindowDesc()
+{
+    return engine::WindowDesc{1280, 720, "Otterus"};
+}
 void editor::Editor::OnStart() {
 m_currentGame->OnStart();
     intializePanels();
@@ -38,6 +41,8 @@ void editor::Editor::BeginImGui() {
     ImGui::CreateContext();
     ImGui_ImplGlfw_InitForOpenGL(GetContext().GetWindow().GetWindowHandle(), false);
     ImGui_ImplOpenGL3_Init("#version 330");
+
+    ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 }
 
 void editor::Editor::EndImGui() {
@@ -55,6 +60,8 @@ void editor::Editor::OnFrameBegin() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+    ImGuiID dockspace_id = ImGui::GetID("Otterus");
+    ImGui::DockSpaceOverViewport(dockspace_id, ImGui::GetMainViewport());
 }
 
 void editor::Editor::OnFrameEnd() {
@@ -65,9 +72,7 @@ void editor::Editor::OnFrameEnd() {
 void editor::Editor::Init() {
     Application::Init();
     BeginImGui();
-    m_currentGame->m_engineContext = &GetContext();
-
-
+    m_currentGame->SetEngineContext(&GetContext());
 
 }
 

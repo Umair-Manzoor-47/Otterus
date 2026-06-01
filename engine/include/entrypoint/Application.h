@@ -22,7 +22,7 @@ namespace engine {
         virtual void OnFrameBegin() = 0;
         virtual void OnFrameEnd() = 0;
         virtual WindowDesc GetWindowDesc() {
-            return WindowDesc{800, 600, "Otterus"};
+            return WindowDesc{1920, 1080, "Otterus"};
         }
 
 
