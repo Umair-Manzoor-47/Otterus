@@ -9,8 +9,11 @@
 namespace engine {
     class Texture {
     public:
+        Texture(ui32 width, ui32 height);
         Texture(const std::string& path);
         void Bind() const;
+        
+        const ui32 GetID() const { return m_textureID; }
 
     private:
         ui32 m_textureID;
