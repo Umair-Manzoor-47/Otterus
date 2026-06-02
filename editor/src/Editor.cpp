@@ -10,6 +10,7 @@
 
 #include <core/Logger.h>
 #include <panels/SceneHierarchyPanel.h>
+#include <panels/ViewPortPanel.h>
 
 engine::WindowDesc editor::Editor::GetWindowDesc()
 {
@@ -17,7 +18,7 @@ engine::WindowDesc editor::Editor::GetWindowDesc()
 }
 void editor::Editor::OnStart() {
 m_currentGame->OnStart();
-    intializePanels();
+    initializePanels();
 
 }
 
@@ -26,9 +27,16 @@ void editor::Editor::OnUpdate(float deltaTime) {
 }
 
 void editor::Editor::OnRender() {
+
+    m_frameBuffer->Bind();
+    glViewport(0, 0, m_frameBuffer->GetWidth(), m_frameBuffer->GetHeight());
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     m_currentGame->OnRender();
-    // m_sceneHierarchy->OnRender();
-    ImGui::ShowDemoWindow();
+    m_frameBuffer->Unbind();
+
+    m_sceneViewport->OnRender();
+    m_frameBuffer->CheckResize();
 
 }
 
@@ -59,9 +67,11 @@ void editor::Editor::EndImGui() {
     ImGui::DestroyContext();
 }
 
-void editor::Editor::intializePanels() {
+void editor::Editor::initializePanels() {
     auto scene = m_currentGame->GetScene();
     m_sceneHierarchy = std::make_unique<SceneHierarchyPanel>("Scene Hierarchy", scene);
+    m_frameBuffer = std::make_shared<FrameBuffer>(640, 480, false);
+    m_sceneViewport = std::make_unique<ViewPortPanel>("Scene Viewport", m_frameBuffer.get());
 }
 
 void editor::Editor::OnFrameBegin() {

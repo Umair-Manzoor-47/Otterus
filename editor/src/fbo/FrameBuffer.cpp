@@ -13,6 +13,37 @@ editor::FrameBuffer::FrameBuffer(engine::ui32 width, engine::ui32 height, bool u
     create();
 }
 
+editor::FrameBuffer::~FrameBuffer() {
+    destroy();
+}
+
+void editor::FrameBuffer::Resize(engine::ui32 width, engine::ui32 height) {
+    m_width = width;
+    m_height = height;
+    m_shouldResize = true;
+}
+
+void editor::FrameBuffer::CheckResize() {
+    if (!m_shouldResize) return;
+
+    destroy();
+
+    m_texture.reset();
+    m_texture = std::make_shared<engine::Texture>(engine::Texture(m_width, m_height));
+    create();
+
+    m_shouldResize = false;
+
+}
+
+void editor::FrameBuffer::Bind() {
+    glBindFramebuffer(GL_FRAMEBUFFER, m_fboID);
+}
+
+void editor::FrameBuffer::Unbind() {
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 void editor::FrameBuffer::create()
 {
 
@@ -30,4 +61,15 @@ void editor::FrameBuffer::create()
     }
     
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void editor::FrameBuffer::destroy() {
+    glDeleteFramebuffers(1, &m_fboID);
+    if (m_useRBO)
+        glDeleteRenderbuffers(1, &m_rboID);
+
+    if (m_texture) {
+        auto id = m_texture->GetID();
+        glDeleteTextures(1, &id);
+    }
 }

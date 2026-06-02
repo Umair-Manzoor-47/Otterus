@@ -14,8 +14,12 @@ namespace editor {
 		void Resize(engine::ui32 width, engine::ui32 height);
 		void CheckResize();
 
+		// Bind and Unbind
+		void Bind();
+		void Unbind();
+
 		// Getters
-		const engine::ui32 GetTextureID() const { return m_texture ? m_texture.GetID() : 0; }
+		const engine::ui32 GetTextureID() const { return m_texture ? m_texture->GetID() : 0; }
 		const engine::ui32 GetID() const { return m_fboID; }
 		const engine::ui32 GetWidth() const { return m_width; }
 		const engine::ui32 GetHeight() const { return m_height; }

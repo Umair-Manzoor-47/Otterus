@@ -7,6 +7,7 @@
 #include <entrypoint/Application.h>
 #include <IGame.h>
 #include <panels/Panel.h>
+#include <fbo/FrameBuffer.h>
 
 namespace editor {
     class Editor : public engine::Application {
@@ -29,7 +30,9 @@ namespace editor {
     private:
         std::unique_ptr<IGame> m_currentGame;
         std::unique_ptr<Panel> m_sceneHierarchy;
+        std::unique_ptr<Panel> m_sceneViewport;
+        std::shared_ptr<FrameBuffer> m_frameBuffer;
 
-        void intializePanels();
+        void initializePanels();
     };
 } // editor
