@@ -27,7 +27,8 @@ void editor::Editor::OnUpdate(float deltaTime) {
 
 void editor::Editor::OnRender() {
     m_currentGame->OnRender();
-    m_sceneHierarchy->OnRender();
+    // m_sceneHierarchy->OnRender();
+    ImGui::ShowDemoWindow();
 
 }
 
@@ -39,10 +40,17 @@ void editor::Editor::OnShutdown() {
 void editor::Editor::BeginImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGui_ImplGlfw_InitForOpenGL(GetContext().GetWindow().GetWindowHandle(), false);
+    ImGui_ImplGlfw_InitForOpenGL(GetContext().GetWindow().GetWindowHandle(), true
+        );
     ImGui_ImplOpenGL3_Init("#version 330");
-
-    ImGui::GetIO().ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    
+    ImGuiIO& io = ImGui::GetIO();
+    
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+    
+    io.ConfigWindowsMoveFromTitleBarOnly = true;
 }
 
 void editor::Editor::EndImGui() {
@@ -67,6 +75,16 @@ void editor::Editor::OnFrameBegin() {
 void editor::Editor::OnFrameEnd() {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        GLFWwindow* backup_current_context = glfwGetCurrentContext();
+
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+
+        glfwMakeContextCurrent(backup_current_context);
+    }
 }
 
 void editor::Editor::Init() {

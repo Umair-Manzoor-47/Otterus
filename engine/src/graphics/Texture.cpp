@@ -3,6 +3,7 @@
 // Copyright (c) 2026 Otterus, LLC. All rights reserved.
 //
 #define STB_IMAGE_IMPLEMENTATION
+#include <entrypoint/Application.h>
 #include <graphics/Texture.h>
 #include <stb/stb_image.h>
 #include <glad/glad.h>
@@ -11,6 +12,26 @@
 
 engine::Texture::Texture(const std::string &path) {
     load(path);
+}
+
+engine::Texture::Texture(ui32 width, ui32 height) {
+    // Generate and bind the texture
+    glGenTextures(1, &m_textureID);
+    glBindTexture(GL_TEXTURE_2D, m_textureID);
+
+    // Set wrapping and filtering parameters
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // Allocate memory on the GPU. 
+    // Passing nullptr creates a blank/empty texture of the specified dimensions.
+    // Note: GL_RGBA is used here as a safe default; adjust format if you only want RGB.
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+
+    // Optional: Unbind texture to prevent accidental modifications elsewhere
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void engine::Texture::load(const std::string &path) {
