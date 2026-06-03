@@ -27,16 +27,17 @@ void editor::Editor::OnUpdate(float deltaTime) {
 }
 
 void editor::Editor::OnRender() {
-
+    m_frameBuffer->CheckResize();
     m_frameBuffer->Bind();
     glViewport(0, 0, m_frameBuffer->GetWidth(), m_frameBuffer->GetHeight());
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     m_currentGame->OnRender();
     m_frameBuffer->Unbind();
-
+    
     m_sceneViewport->OnRender();
-    m_frameBuffer->CheckResize();
+    m_sceneHierarchy->OnRender();
+    ImGui::ShowDemoWindow();
 
 }
 
@@ -70,7 +71,7 @@ void editor::Editor::EndImGui() {
 void editor::Editor::initializePanels() {
     auto scene = m_currentGame->GetScene();
     m_sceneHierarchy = std::make_unique<SceneHierarchyPanel>("Scene Hierarchy", scene);
-    m_frameBuffer = std::make_shared<FrameBuffer>(640, 480, false);
+    m_frameBuffer = std::make_shared<FrameBuffer>(640, 480, true);
     m_sceneViewport = std::make_unique<ViewPortPanel>("Scene Viewport", m_frameBuffer.get());
 }
 
