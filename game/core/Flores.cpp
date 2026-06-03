@@ -17,28 +17,45 @@ Flores::Flores() {}
 void Flores::OnStart() {
 
     OT_INFO("Flores Start.");
+    // Systems
     m_resourceManager = std::make_unique<engine::ResourceManager>();
-    std::unique_ptr<engine::GameObject> obj = std::make_unique<engine::GameObject>("Test", engine::TransformDesc{
+    m_camera = std::make_unique<engine::Camera>();
+    m_input = &GetContext().GetInputSystem();
+    
+    // Resources 
+    const std::shared_ptr<engine::Shader> m_shader = m_resourceManager->LoadShader( "../assets/shaders/vertex_shader.glsl",
+        "../assets/shaders/fragment_shader.glsl");
+    auto meshData = engine::MeshLoader::Load("../assets/cube/Cube.obj");
+    auto m_mesh = m_resourceManager->Load<engine::Mesh>("../assets/cube/Cube.obj");
+    
+    // GameObjects
+    // Test_1
+    std::unique_ptr<engine::GameObject> obj = std::make_unique<engine::GameObject>("Test_1", engine::TransformDesc{
     glm::vec3(0.f, 0.f, -3.f),
     glm::vec3(0.f),
     glm::vec3(1.f)
     });
-    
-    m_camera = std::make_unique<engine::Camera>();
-    m_input = &GetContext().GetInputSystem();
-
-    
-    const std::shared_ptr<engine::Shader> m_shader = m_resourceManager->LoadShader( "../assets/shaders/vertex_shader.glsl",
-        "../assets/shaders/fragment_shader.glsl");
     obj->SetShader(m_shader);
-    auto meshData = engine::MeshLoader::Load("../assets/cube/Cube.obj");
-    auto m_mesh = m_resourceManager->Load<engine::Mesh>("../assets/cube/Cube.obj");
     obj->SetMesh(m_mesh);
-    
-    
     obj->SetMaterial(meshData.material);
+    
+    std::unique_ptr<engine::GameObject> obj_2 = std::make_unique<engine::GameObject>("Test_2", engine::TransformDesc{
+        glm::vec3(6.f, 0.f, -3.f),
+        glm::vec3(0.f),
+        glm::vec3(1.f)
+        });
+    obj_2->SetShader(m_shader);
+    obj_2->SetMesh(m_mesh);
+    obj_2->SetMaterial(meshData.material);
+    
+    // Scene
     m_scene = std::make_unique<engine::Scene>();
     m_scene->AddObject(std::move(obj));
+    m_scene->AddObject(std::move(obj_2));
+    
+    
+    
+    // Events
     GetContext().GetDispatcher().Subscribe<engine::MouseMovedEvent>([this](engine::MouseMovedEvent& e) {
     if (m_firstMouse) {
         m_lastMouseX = e.GetX();
