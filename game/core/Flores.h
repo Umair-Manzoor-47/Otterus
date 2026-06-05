@@ -4,13 +4,10 @@
 #pragma once
 
 #include <entrypoint/Application.h>
-#include <core/Core.h>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <graphics/Transform.h>
 #include <scene/Scene.h>
 #include <IGame.h>
 #include <resource_manager/ResourceManager.h>
+#include <engine_context/EngineContext.h>
 
 class Flores : public editor::IGame {
 public:
