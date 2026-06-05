@@ -5,7 +5,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <entrypoint/Application.h>
 #include <graphics/Texture.h>
-#include <stb/stb_image.h>
+#include <stb_image.h>
 #include <glad/glad.h>
 
 #include "core/Logger.h"

@@ -6,10 +6,8 @@
 #include <core/Logger.h>
 #include <event/keyboard/KeyPressedEvent.h>
 #include <event/mouse/MouseMovedEvent.h>
-#include <graphics/Transform.h>
 #include <game_object/GameObject.h>
 #include <graphics/MeshLoader.h>
-#include <graphics/Material.h>
 #include <resource_manager/ResourceManager.h>
 
 Flores::Flores() {}
