@@ -6,6 +6,7 @@
 #include <resource_manager/ResourceManager.h>
 
 #include "core/Logger.h"
+#include <loaders/TextureLoader.h>
 
 /// <summary>
 /// Check if requested file already loaded and exists --> return it
@@ -18,7 +19,8 @@ std::shared_ptr<engine::Texture> engine::ResourceManager::Load<engine::Texture>(
     {
         return it->second;
     }
-    auto texture = std::make_shared<Texture>(path);
+    TextureData textureData = TextureLoader::Load(path);
+    auto texture = std::make_shared<engine::Texture>(textureData);
 
     m_textures[path] = texture;
 

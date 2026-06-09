@@ -4,20 +4,18 @@
 //
 #pragma once
 #include <core/Core.h>
-#include <string>
+#include <core/Common.h>
 
 namespace engine {
     class Texture {
     public:
         Texture(ui32 width, ui32 height);
-        Texture(const std::string& path);
+        Texture(const TextureData& data);
         void Bind() const;
         
         const ui32 GetID() const { return m_textureID; }
 
     private:
         ui32 m_textureID;
-
-        void load(const std::string& path);
     };
 } // engine
