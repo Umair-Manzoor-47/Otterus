@@ -9,8 +9,8 @@ if (MSVC)
 endif()
 
 # Speed
-set(CMAKE_UNITY_BUILD ON)
-set(CMAKE_UNITY_BUILD_BATCH_SIZE 16)
+#set(CMAKE_UNITY_BUILD ON)
+#set(CMAKE_UNITY_BUILD_BATCH_SIZE 16)
 
 # Third party
 add_subdirectory(vendor/glfw)

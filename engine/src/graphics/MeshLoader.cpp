@@ -4,6 +4,8 @@
 #include <core/Logger.h>
 #include <graphics/Material.h>
 
+#include <loaders/TextureLoader.h>
+
 // Layout Produced
 // [x y z nx ny nz u v]
 engine::MeshData engine::MeshLoader::Load(const std::string& path)
@@ -79,7 +81,10 @@ engine::MeshData engine::MeshLoader::Load(const std::string& path)
     {
         if (!materials[0].diffuse_texname.empty())
         {
-            auto texture = std::make_shared<Texture>(baseDir + materials[0].diffuse_texname);
+            std::string texPath = baseDir + materials[0].diffuse_texname;
+            TextureData data = TextureLoader::Load(texPath);
+            auto texture = std::make_shared<Texture>(data);
+            TextureLoader::Free(data);
             meshData.material->SetDiffuseTexture(texture);
         }
         else
