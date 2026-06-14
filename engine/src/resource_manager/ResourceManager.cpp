@@ -23,7 +23,7 @@ std::shared_ptr<engine::Texture> engine::ResourceManager::Load<engine::Texture>(
     auto texture = std::make_shared<engine::Texture>(textureData);
 
     m_textures[path] = texture;
-
+    TextureLoader::Free(textureData);
     return texture;
 }
 
