@@ -76,26 +76,6 @@ engine::MeshData engine::MeshLoader::Load(const std::string& path)
         }
     }
 
-    meshData.material = std::make_shared<Material>();
-    if (!materials.empty())
-    {
-        if (!materials[0].diffuse_texname.empty())
-        {
-            std::string texPath = baseDir + materials[0].diffuse_texname;
-            TextureData data = TextureLoader::Load(texPath);
-            auto texture = std::make_shared<Texture>(data);
-            TextureLoader::Free(data);
-            meshData.material->SetDiffuseTexture(texture);
-        }
-        else
-        {
-            meshData.material->SetDiffuseColor(glm::vec3(
-                materials[0].diffuse[0],
-                materials[0].diffuse[1],
-                materials[0].diffuse[2]
-            ));
-        }
-    }
 
     return meshData;
 }

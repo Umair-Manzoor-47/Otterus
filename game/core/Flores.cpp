@@ -25,6 +25,11 @@ void Flores::OnStart() {
         "../assets/shaders/fragment_shader.glsl");
     auto meshData = engine::MeshLoader::Load("../assets/cube/Cube.obj");
     auto m_mesh = m_resourceManager->Load<engine::Mesh>("../assets/cube/Cube.obj");
+    auto material = std::make_shared<engine::Material>();
+    auto texture = m_resourceManager->Load<engine::Texture>("../assets/cube/cube_texture.png");
+    material->SetUseTexture(true);
+    material->SetDiffuseTexture(texture);
+
     
     // GameObjects
     // Test_1
@@ -35,7 +40,7 @@ void Flores::OnStart() {
     });
     obj->SetShader(m_shader);
     obj->SetMesh(m_mesh);
-    obj->SetMaterial(meshData.material);
+    obj->SetMaterial(material);
     
     std::unique_ptr<engine::GameObject> obj_2 = std::make_unique<engine::GameObject>("Test_2", engine::TransformDesc{
         glm::vec3(6.f, 0.f, -3.f),
@@ -44,7 +49,7 @@ void Flores::OnStart() {
         });
     obj_2->SetShader(m_shader);
     obj_2->SetMesh(m_mesh);
-    obj_2->SetMaterial(meshData.material);
+    obj_2->SetMaterial(material);
     
     // Scene
     m_scene = std::make_unique<engine::Scene>();
@@ -105,12 +110,12 @@ void Flores::OnUpdate(float deltaTime)
         m_camera->SetPosition(m_camera->GetPosition() + m_camera->GetRightVector() * speed * deltaTime);
         
     }
-    // engine::GameObject* obj = m_scene->GetObject("Test");
-    // if (obj) {
-    //     obj->GetTransform().SetRotation(
-    //         glm::vec3(0.f, glfwGetTime() * 50.f, 0.f)
-    //     );
-    // }
+    engine::GameObject* obj = m_scene->GetObject("Test_1");
+    if (obj) {
+        obj->GetTransform().SetRotation(
+            glm::vec3(0.f, glfwGetTime() * 50.f, 0.f)
+        );
+    }
 }
 
 void Flores::OnShutdown() {
