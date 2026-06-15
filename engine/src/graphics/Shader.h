@@ -2,13 +2,13 @@
 #include <core/Core.h>
 #include <string>
 #include <core/Common.h>
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 namespace engine {
     class Shader {
     public:
         Shader() = default;
-        void Load(const ShaderDesc &desc);
+        void Load(const ShaderSource &source);
         void Bind() const;
         ui32 GetProgram() const;
         void SetUniform(const std::string& name, const glm::mat4& matrix) const;
@@ -21,7 +21,6 @@ namespace engine {
         ui32 m_vertexShader;
         ui32 m_fragmentShader;
 
-        std::string readFile(const std::string& path);
         void compile(const std::string& vertexCode, const std::string& fragmentCode);
         ui32 createShader(const std::string &code, GLenum type);
         void deleteShaders();
