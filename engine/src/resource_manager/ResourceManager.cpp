@@ -4,9 +4,11 @@
 //
 
 #include <resource_manager/ResourceManager.h>
-
-#include "core/Logger.h"
+#include <core/Common.h>
+#include <core/Logger.h>
 #include <loaders/TextureLoader.h>
+#include <loaders/ShaderLoader.h>
+#include <graphics/MeshLoader.h>
 
 /// <summary>
 /// Check if requested file already loaded and exists --> return it
@@ -57,7 +59,8 @@ std::shared_ptr<engine::Shader> engine::ResourceManager::LoadShader(const std::s
         return it->second;
 
     auto shader = std::make_shared<Shader>();
-    shader->Load({vertexPath, fragmentPath});
+    const ShaderSource shaderSource = engine::ShaderLoader::Load({vertexPath, fragmentPath});
+    shader->Load(shaderSource);
 
     m_shaders[key] = shader;
     return shader;

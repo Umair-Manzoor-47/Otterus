@@ -28,6 +28,10 @@ namespace engine {
         std::string vertexPath;
         std::string fragmentPath;
     };
+    struct ShaderSource {
+        std::string vertexCode;
+        std::string fragmentCode;
+    };
     struct MeshData {
         std::vector<float> vertices;
         std::vector<ui32> indices;

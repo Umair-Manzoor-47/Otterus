@@ -1,17 +1,10 @@
-//
-// Created by umair on 5/10/2026.
-//
-#include <fstream>
-#include <sstream>
-#include <glad/glad.h>
 #include <core/Logger.h>
 #include <graphics/Shader.h>
 #include <glm/gtc/type_ptr.hpp>
 
-void engine::Shader::Load(const ShaderDesc &desc) {
-    std::string vertexShaderCode = readFile(desc.vertexPath);
-    std::string fragmentShaderCode = readFile(desc.fragmentPath);
-    compile(vertexShaderCode, fragmentShaderCode);
+void engine::Shader::Load(const ShaderSource &source) {
+
+    compile(source.vertexCode, source.fragmentCode);
     deleteShaders();
 }
 
@@ -24,18 +17,6 @@ engine::ui32 engine::Shader::GetProgram() const {
     return m_ShaderProgram;
 }
 
-std::string engine::Shader::readFile(const std::string &path) {
-        std::ifstream file(path);
-
-        if (!file.is_open()) {
-            CORE_ERROR("Failed to open file");
-        }
-
-        std::stringstream buffer;
-        buffer << file.rdbuf();
-
-        return buffer.str();
-}
 
 void engine::Shader::compile(const std::string &vertexCode, const std::string &fragmentCode) {
         m_ShaderProgram = glCreateProgram();

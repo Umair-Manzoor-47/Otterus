@@ -27,6 +27,7 @@ target_sources(OtterusEngine PRIVATE
         src/graphics/TinyObjLoader.cpp
         src/loaders/TextureLoader.cpp
         src/loaders/stb_img.cpp
+        src/loaders/ShaderLoader.cpp
 )
 
 target_include_directories(OtterusEngine PUBLIC

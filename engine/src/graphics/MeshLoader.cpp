@@ -4,8 +4,6 @@
 #include <core/Logger.h>
 #include <graphics/Material.h>
 
-#include <loaders/TextureLoader.h>
-
 // Layout Produced
 // [x y z nx ny nz u v]
 engine::MeshData engine::MeshLoader::Load(const std::string& path)
