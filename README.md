@@ -17,7 +17,7 @@ RoadMap:
 ### Window System
 - [x] Window creation from game
 - [x] Window Events
-- [ ] Window Resizing
+- [x] Window Resizing
 ### Texture
 - [x] Basic Texture Rendering
 - [x] Extracting texture from OBJ
