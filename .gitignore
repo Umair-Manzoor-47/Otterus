@@ -9,6 +9,3 @@ cmake-build-release/
 *.obj
 *.a
 *.lib
-
-# Vendor - large libraries (add as submodules later)
-vendor/glfw/
