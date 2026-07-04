@@ -14,4 +14,3 @@ cmake-build-release/
 vendor/glfw/
 vendor/glm/
 vendor/imgui/
-vendor/spdlog/
