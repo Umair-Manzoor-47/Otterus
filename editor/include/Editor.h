@@ -7,7 +7,7 @@
 #include <entrypoint/Application.h>
 #include <IGame.h>
 #include <panels/Panel.h>
-#include <fbo/FrameBuffer.h>
+#include <graphics/FrameBuffer.h>
 
 namespace editor {
     class Editor : public engine::Application {
