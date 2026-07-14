@@ -1,4 +1,4 @@
-﻿#include <fbo/FrameBuffer.h>
+﻿#include <graphics/FrameBuffer.h>
 #include <glad/glad.h>
 #include <spdlog/fmt/bundled/base.h>
 

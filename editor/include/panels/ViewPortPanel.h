@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <string>
 
-#include <fbo/FrameBuffer.h>
+#include <graphics/FrameBuffer.h>
 
 #include "Panel.h"
 #include "glm/vec2.hpp"
