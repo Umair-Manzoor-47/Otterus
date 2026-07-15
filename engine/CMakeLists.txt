@@ -20,7 +20,6 @@ target_sources(OtterusEngine PRIVATE
         src/graphics/Texture.cpp
         src/graphics/Transform.cpp
         src/event/Dispatcher.cpp
-        src/core/Logger.cpp
         src/window/Window.cpp
         src/scene/Scene.cpp
         src/graphics/GraphicsEngine.cpp
@@ -39,5 +38,9 @@ target_include_directories(OtterusEngine PUBLIC
         ${CMAKE_SOURCE_DIR}/vendor/stb
 
 )
-
-target_link_libraries(OtterusEngine PUBLIC glfw spdlog::spdlog glm::glm)
+target_link_libraries(OtterusEngine
+        PUBLIC
+        glfw
+        glm::glm
+        OTTERUS_LOGGER
+)

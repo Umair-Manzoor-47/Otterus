@@ -6,7 +6,7 @@
 
 #include <stb_image.h>
 
-#include "core/Logger.h"
+#include "../../../OTTERUS_LOGGER/logger/Logger.h"
 
 engine::TextureData engine::TextureLoader::Load(const std::string &path) {
     TextureData data;

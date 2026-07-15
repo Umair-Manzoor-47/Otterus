@@ -1,7 +1,7 @@
 ﻿#include <graphics/MeshLoader.h>
 #include <tiny_obj_loader.h>
 #include <unordered_map>
-#include <core/Logger.h>
+#include <logger/Logger.h>
 #include <graphics/Material.h>
 
 // Layout Produced

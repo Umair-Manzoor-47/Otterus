@@ -16,6 +16,7 @@ endif()
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glm)
 add_subdirectory(vendor/spdlog)
+add_subdirectory(OTTERUS_LOGGER)
 add_subdirectory(engine)
 
 # ImGui — one tidy static lib, nothing leaks out of here

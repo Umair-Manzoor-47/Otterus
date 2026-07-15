@@ -2,13 +2,13 @@
 // Created by umair on 5/6/2026.
 //
 
-#include <core/Logger.h>
+#include <logger/Logger.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-std::shared_ptr<spdlog::logger> engine::Logger::m_coreLogger;
-std::shared_ptr<spdlog::logger> engine::Logger::m_clientLogger;
+std::shared_ptr<spdlog::logger> otterus_logger::Logger::m_coreLogger;
+std::shared_ptr<spdlog::logger> otterus_logger::Logger::m_clientLogger;
 
-void engine::Logger::Init() {
+void otterus_logger::Logger::Init() {
     if (m_coreLogger) return;
     spdlog::set_pattern("%^[%T] [%L] %n (%s:%#): %v%$");
     m_coreLogger = spdlog::stdout_color_mt("Otterus", spdlog::color_mode::automatic);

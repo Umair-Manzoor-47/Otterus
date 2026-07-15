@@ -1,4 +1,4 @@
-#include <core/Logger.h>
+#include <logger/Logger.h>
 #include <graphics/Shader.h>
 #include <glm/gtc/type_ptr.hpp>
 

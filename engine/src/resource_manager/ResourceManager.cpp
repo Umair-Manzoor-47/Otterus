@@ -5,7 +5,7 @@
 
 #include <resource_manager/ResourceManager.h>
 #include <core/Common.h>
-#include <core/Logger.h>
+#include <logger/Logger.h>
 #include <loaders/TextureLoader.h>
 #include <loaders/ShaderLoader.h>
 #include <graphics/MeshLoader.h>
