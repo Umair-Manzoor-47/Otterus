@@ -3,7 +3,7 @@
 //
 
 #include "Flores.h"
-#include <core/Logger.h>
+#include <logger/Logger.h>
 #include <event/keyboard/KeyPressedEvent.h>
 #include <event/mouse/MouseMovedEvent.h>
 #include <game_object/GameObject.h>

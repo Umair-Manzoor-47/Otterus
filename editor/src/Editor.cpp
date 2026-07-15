@@ -8,7 +8,7 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
-#include <core/Logger.h>
+#include <logger/Logger.h>
 #include <panels/SceneHierarchyPanel.h>
 #include <panels/ViewPortPanel.h>
 

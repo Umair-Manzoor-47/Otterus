@@ -6,7 +6,7 @@
 #include <graphics/Texture.h>
 #include <glad/glad.h>
 
-#include "core/Logger.h"
+#include "../../../OTTERUS_LOGGER/logger/Logger.h"
 
 engine::Texture::Texture(const TextureData& data) {
     glGenTextures(1, &m_textureID);

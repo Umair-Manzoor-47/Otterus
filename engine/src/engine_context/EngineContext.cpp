@@ -1,9 +1,9 @@
 ﻿#include <engine_context/EngineContext.h>
-#include <core/Logger.h>
+#include <logger/Logger.h>
 
 engine::EngineContext::EngineContext(const WindowDesc& window_desc){
 
-    engine::Logger::Init();
+    otterus_logger::Logger::Init();
     m_window = std::make_unique<Window>(
         window_desc, 
         m_dispatcher

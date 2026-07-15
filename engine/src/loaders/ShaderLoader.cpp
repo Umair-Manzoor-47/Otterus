@@ -1,7 +1,7 @@
 #include <loaders/ShaderLoader.h>
 #include <fstream>
 #include <sstream>
-#include <core/Logger.h>
+#include <logger/Logger.h>
 
 engine::ShaderSource engine::ShaderLoader::Load(const ShaderDesc& desc) {
     ShaderSource source;
