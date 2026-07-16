@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <event/Dispatcher.h>
 
-namespace engine {
+namespace otterus::windowing::event {
 
     template<typename T>
     Dispatcher::SubscriberID Dispatcher::Subscribe(std::function<void(T&)> callback)

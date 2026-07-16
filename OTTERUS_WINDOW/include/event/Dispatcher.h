@@ -3,14 +3,13 @@
 #include <unordered_map>
 #include <vector>
 #include <algorithm>
-#include <core/Common.h>
 #include <event/Event.h>
 
-namespace engine {
+namespace otterus::windowing::event {
 
     class Dispatcher {
     public:
-        using SubscriberID = ui32;
+        using SubscriberID = unsigned int;
 
         template<typename T>
         SubscriberID Subscribe(std::function<void(T&)> callback);

@@ -1,8 +1,7 @@
 #pragma once
 #include <event/Event.h>
-#include <core/Common.h>
 
-namespace engine {
+namespace otterus::windowing::event {
     class KeyPressedEvent: public Event {
     public:
         explicit KeyPressedEvent(const int keyCode): m_keyCode(keyCode) {}

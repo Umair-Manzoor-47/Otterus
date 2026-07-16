@@ -12,9 +12,9 @@
 #include <panels/SceneHierarchyPanel.h>
 #include <panels/ViewPortPanel.h>
 
-engine::WindowDesc editor::Editor::GetWindowDesc()
+otterus::windowing::WindowDesc editor::Editor::GetWindowDesc()
 {
-    return engine::WindowDesc{1280, 720, "Otterus"};
+    return otterus::windowing::WindowDesc{1280, 720, "Otterus"};
 }
 void editor::Editor::OnStart() {
 m_currentGame->OnStart();

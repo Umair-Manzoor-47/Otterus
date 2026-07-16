@@ -1,14 +1,17 @@
 #pragma once
-#include <core/Common.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
-namespace engine{
+namespace otterus::windowing::input {
+    struct InputDesc {
+        GLFWwindow* handle;
+    };
     class InputSystem {
 
     public:
         explicit InputSystem(const InputDesc& desc);
         
         bool IsKeyHeld(int keyCode) const;
-    private:
     private:
         static constexpr int MAX_KEYS = 512;
         bool m_keyStates[MAX_KEYS] = {false};

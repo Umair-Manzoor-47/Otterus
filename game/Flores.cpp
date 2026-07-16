@@ -59,7 +59,7 @@ void Flores::OnStart() {
     
     
     // Events
-    GetContext().GetDispatcher().Subscribe<engine::MouseMovedEvent>([this](engine::MouseMovedEvent& e) {
+    GetContext().GetDispatcher().Subscribe<otterus::windowing::event::MouseMovedEvent>([this](otterus::windowing::event::MouseMovedEvent& e) {
     if (m_firstMouse) {
         m_lastMouseX = e.GetX();
         m_lastMouseY = e.GetY();

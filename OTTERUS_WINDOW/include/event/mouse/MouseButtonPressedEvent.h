@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <event/Event.h>
-namespace engine{
+namespace otterus::windowing::event{
 	class MouseButtonPressedEvent: public Event
 	{
 	public:

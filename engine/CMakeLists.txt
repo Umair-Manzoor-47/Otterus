@@ -12,9 +12,8 @@ target_sources(OtterusEngine PRIVATE
         src/entrypoint/Application.cpp
         src/game_object/GameObject.cpp
         ../OTTERUS_CORE/src/ResourceManager.cpp
-        src/input_system/InputSystem.cpp
+        ../OTTERUS_WINDOW/src/InputSystem.cpp
         src/event/Dispatcher.cpp
-        src/window/Window.cpp
         src/scene/Scene.cpp
 )
 
@@ -30,4 +29,5 @@ target_link_libraries(OtterusEngine
         OTTERUS_LOGGER
         OTTERUS_RENDERING
         OTTERUS_CORE
+        OTTERUS_WINDOW
 )

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-namespace engine {
+namespace otterus::windowing::event {
 	class KeyReleasedEvent: public Event
 	{
 	public:

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <event/Event.h>
-#include <core/Common.h>
-namespace engine {
+
+namespace otterus::windowing::event {
 	class WindowCloseEvent : public Event {
 	public:
 		EventType GetType() const override { return GetStaticType(); }

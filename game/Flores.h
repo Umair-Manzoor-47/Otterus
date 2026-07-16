@@ -24,7 +24,7 @@ public:
 private:
     engine::EngineContext* m_engineContext = nullptr;
     std::unique_ptr<otterus_resources::ResourceManager> m_resourceManager;
-    engine::InputSystem* m_input = nullptr;
+    otterus::windowing::input::InputSystem* m_input = nullptr;
     otterus_rendering::GraphicsEngine* m_gfx = nullptr;
     std::unique_ptr<otterus_rendering::Camera> m_camera;
     float m_lastMouseX = 400.f;
