@@ -12,7 +12,6 @@ namespace engine
     class Base;
     class Window;
     class Dispatcher;
-    class GraphicsEngine;
     class InputSystem;
     class Material;
     // class GraphicsDevice;

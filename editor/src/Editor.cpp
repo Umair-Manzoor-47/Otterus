@@ -71,7 +71,7 @@ void editor::Editor::EndImGui() {
 void editor::Editor::initializePanels() {
     auto scene = m_currentGame->GetScene();
     m_sceneHierarchy = std::make_unique<SceneHierarchyPanel>("Scene Hierarchy", scene);
-    m_frameBuffer = std::make_shared<FrameBuffer>(640, 480, true);
+    m_frameBuffer = std::make_shared<otterus_rendering::FrameBuffer>(640, 480, true);
     m_sceneViewport = std::make_unique<ViewPortPanel>("Scene Viewport", m_frameBuffer.get());
 }
 

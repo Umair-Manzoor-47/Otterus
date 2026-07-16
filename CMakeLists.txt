@@ -13,13 +13,7 @@ endif()
 #set(CMAKE_UNITY_BUILD_BATCH_SIZE 16)
 
 # Third party
-add_subdirectory(vendor/glfw)
-add_subdirectory(vendor/glm)
-add_subdirectory(vendor/spdlog)
-add_subdirectory(OTTERUS_LOGGER)
-add_subdirectory(engine)
-
-# ImGui — one tidy static lib, nothing leaks out of here
+# ImGui
 add_library(imgui STATIC
         vendor/imgui/imgui.cpp
         vendor/imgui/imgui_draw.cpp
@@ -29,10 +23,28 @@ add_library(imgui STATIC
         vendor/imgui/backends/imgui_impl_glfw.cpp
         vendor/imgui/backends/imgui_impl_opengl3.cpp
 )
+# glad
+add_library(glad STATIC
+        vendor/glad/src/glad.c
+)
+
+target_include_directories(glad PUBLIC
+        vendor/glad/include
+)
 target_include_directories(imgui PUBLIC
         vendor/imgui
         vendor/imgui/backends
 )
+
+
+add_subdirectory(vendor/glfw)
+add_subdirectory(vendor/glm)
+add_subdirectory(vendor/spdlog)
+add_subdirectory(OTTERUS_LOGGER)
+add_subdirectory(OTTERUS_RENDERING)
+add_subdirectory(OTTERUS_CORE)
+add_subdirectory(engine)
+
 target_link_libraries(imgui PUBLIC glfw)
 
 set_target_properties(imgui PROPERTIES UNITY_BUILD OFF)
@@ -44,8 +56,6 @@ file(GLOB_RECURSE SOURCES
 )
 
 add_executable(Otterus ${SOURCES})
-
-target_sources(Otterus PRIVATE vendor/glad/src/glad.c)
 
 target_include_directories(Otterus PRIVATE
         ${CMAKE_SOURCE_DIR}/editor/include

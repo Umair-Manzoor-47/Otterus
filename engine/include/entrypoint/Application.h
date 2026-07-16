@@ -2,9 +2,9 @@
 // Created by umair on 5/8/2026.
 //
 #pragma once
-#include <camera/Camera.h>
+#include <Rendering/Core/Camera.h>
 #include <core/Core.h>
-#include <graphics/GraphicsEngine.h>
+#include <../../../OTTERUS_RENDERING/include/Rendering/Core/GraphicsEngine.h>
 #include <event/Dispatcher.h>
 #include <window/Window.h>
 #include <input_system/InputSystem.h>

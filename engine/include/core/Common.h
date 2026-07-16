@@ -23,29 +23,7 @@ namespace engine {
     struct InputDesc {
        GLFWwindow* handle;
     };
-    struct ShaderDesc
-    {
-        std::string vertexPath;
-        std::string fragmentPath;
-    };
-    struct ShaderSource {
-        std::string vertexCode;
-        std::string fragmentCode;
-    };
-    struct MeshData {
-        std::vector<float> vertices;
-        std::vector<ui32> indices;
-    };
 
-    struct TransformDesc {
-        glm::vec3 Position = glm::vec3(0.0f, 0.0f, 0.0f);
-        glm::vec3 Rotation = glm::vec3(0.0f, 0.0f, 0.0f);
-        glm::vec3 Scale    = glm::vec3(1.0f, 1.0f, 1.0f);
-    };
-    struct TextureData {
-        unsigned char* pixels = nullptr;
-        int width, height, channels;
-    };
     enum class EventType
     {
         None = 0,
@@ -55,15 +33,6 @@ namespace engine {
         KeyPressed, KeyReleased,
         // Mouse
         MouseMoved, MouseButtonPressed, MouseButtonReleased, MouseScrolled
-    };
-    struct RenderCamera {
-        glm::mat4 projection;
-        glm::mat4 view;
-        glm::vec3 position;
-    };
-    struct RenderLight {
-        glm::vec3 position;
-        glm::vec3 color;
     };
 
 }

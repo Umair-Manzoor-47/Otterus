@@ -13,7 +13,7 @@ engine::EngineContext::EngineContext(const WindowDesc& window_desc){
     m_inputSystem = std::make_unique<InputSystem>( 
         InputDesc{ m_window->GetWindowHandle() }
         );
-    m_graphicsEngine = std::make_unique<GraphicsEngine>();
+    m_graphicsEngine = std::make_unique<otterus_rendering::GraphicsEngine>();
     
     m_windowUserData = { m_window.get(), m_inputSystem.get() };
     glfwSetWindowUserPointer(m_window->GetWindowHandle(), &m_windowUserData);

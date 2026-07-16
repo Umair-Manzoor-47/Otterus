@@ -2,7 +2,7 @@
 
 #include "imgui.h"
 
-editor::ViewPortPanel::ViewPortPanel(const std::string &title, FrameBuffer *frameBuffer)
+editor::ViewPortPanel::ViewPortPanel(const std::string &title, otterus_rendering::FrameBuffer *frameBuffer)
     : Panel(title),
     m_frameBuffer(frameBuffer)
 {

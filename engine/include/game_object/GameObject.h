@@ -2,26 +2,26 @@
 #include <core/Common.h>
 #include <core/Core.h>
 #include <string>
-#include <graphics/Mesh.h>
-#include <graphics/Shader.h>
-#include <graphics/Texture.h>
-#include <graphics/Transform.h>
-#include <graphics/Material.h>
+#include <Rendering/Essentials/Mesh.h>
+#include <Rendering/Essentials/Shader.h>
+#include <Rendering/Essentials/Texture.h>
+#include <Rendering/Essentials/Transform.h>
+#include <Rendering/Essentials/Material.h>
 
 namespace engine {
     class GameObject {
     public:
-        GameObject(const std::string& name, const TransformDesc& transformDesc);
+        GameObject(const std::string& name, const otterus_rendering::TransformDesc& transformDesc);
 
-        void SetMesh(std::shared_ptr<Mesh> mesh);
-        void SetShader(std::shared_ptr<Shader> shader);
-        void SetMaterial(std::shared_ptr<Material> material);
+        void SetMesh(std::shared_ptr<otterus_rendering::Mesh> mesh);
+        void SetShader(std::shared_ptr<otterus_rendering::Shader> shader);
+        void SetMaterial(std::shared_ptr<otterus_rendering::Material> material);
         
-        Transform& GetTransform() { return m_transform; }
-        const Transform& GetTransform() const { return m_transform; }
-        std::shared_ptr<Mesh> GetMesh() const { return m_mesh; }
-        std::shared_ptr<Shader> GetShader() const { return m_shader; }
-        std::shared_ptr<Material> GetMaterial() const { return m_material; }
+        otterus_rendering::Transform& GetTransform() { return m_transform; }
+        const otterus_rendering::Transform& GetTransform() const { return m_transform; }
+        std::shared_ptr<otterus_rendering::Mesh> GetMesh() const { return m_mesh; }
+        std::shared_ptr<otterus_rendering::Shader> GetShader() const { return m_shader; }
+        std::shared_ptr<otterus_rendering::Material> GetMaterial() const { return m_material; }
         const std::string& GetName() const { return m_name; }
         
         bool HasMesh() const { return m_mesh != nullptr; }
@@ -30,9 +30,9 @@ namespace engine {
 
     private:
         std::string m_name;
-        Transform m_transform;
-        std::shared_ptr<Mesh> m_mesh;
-        std::shared_ptr<Shader> m_shader;
-        std::shared_ptr<Material> m_material;
+        otterus_rendering::Transform m_transform;
+        std::shared_ptr<otterus_rendering::Mesh> m_mesh;
+        std::shared_ptr<otterus_rendering::Shader> m_shader;
+        std::shared_ptr<otterus_rendering::Material> m_material;
     };
 }
