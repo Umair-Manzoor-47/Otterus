@@ -12,9 +12,9 @@
 #include <panels/SceneHierarchyPanel.h>
 #include <panels/ViewPortPanel.h>
 
-engine::WindowDesc editor::Editor::GetWindowDesc()
+otterus::windowing::WindowDesc editor::Editor::GetWindowDesc()
 {
-    return engine::WindowDesc{1280, 720, "Otterus"};
+    return otterus::windowing::WindowDesc{1280, 720, "Otterus"};
 }
 void editor::Editor::OnStart() {
 m_currentGame->OnStart();
@@ -71,7 +71,7 @@ void editor::Editor::EndImGui() {
 void editor::Editor::initializePanels() {
     auto scene = m_currentGame->GetScene();
     m_sceneHierarchy = std::make_unique<SceneHierarchyPanel>("Scene Hierarchy", scene);
-    m_frameBuffer = std::make_shared<FrameBuffer>(640, 480, true);
+    m_frameBuffer = std::make_shared<otterus_rendering::FrameBuffer>(640, 480, true);
     m_sceneViewport = std::make_unique<ViewPortPanel>("Scene Viewport", m_frameBuffer.get());
 }
 

@@ -2,12 +2,12 @@
 // Created by umair on 5/8/2026.
 //
 #pragma once
-#include <camera/Camera.h>
+#include <Rendering/Core/Camera.h>
 #include <core/Core.h>
-#include <graphics/GraphicsEngine.h>
+#include <../../../OTTERUS_RENDERING/include/Rendering/Core/GraphicsEngine.h>
 #include <event/Dispatcher.h>
-#include <window/Window.h>
-#include <input_system/InputSystem.h>
+#include <../../../OTTERUS_WINDOW/include/Windowing/Window.h>
+#include <Input/InputSystem.h>
 #include <engine_context/EngineContext.h>
 
 namespace engine {
@@ -21,8 +21,8 @@ namespace engine {
         virtual void OnRender() = 0;
         virtual void OnFrameBegin() = 0;
         virtual void OnFrameEnd() = 0;
-        virtual WindowDesc GetWindowDesc() {
-            return WindowDesc{1920, 1080, "Otterus"};
+        virtual otterus::windowing::WindowDesc GetWindowDesc() {
+            return otterus::windowing::WindowDesc{1920, 1080, "Otterus"};
         }
 
 

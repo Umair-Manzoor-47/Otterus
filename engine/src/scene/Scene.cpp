@@ -30,7 +30,7 @@ engine::GameObject* engine::Scene::GetObject(const std::string& name)
     return nullptr;
 }
 
-void engine::Scene::Render(GraphicsEngine& gfx, const RenderCamera& renderCamera, const RenderLight& light) {
+void engine::Scene::Render(otterus_rendering::GraphicsEngine& gfx, const otterus_rendering::RenderCamera& renderCamera, const otterus_rendering::RenderLight& light) {
 
     for (auto& object : m_gameObjects) {
         if (!object->HasMesh() || !object->HasShader())

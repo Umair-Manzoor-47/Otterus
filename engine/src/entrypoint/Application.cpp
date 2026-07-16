@@ -4,7 +4,7 @@
 
 #include <entrypoint/Application.h>
 #include <event/window/WindowCloseEvent.h>
-#include <window/Window.h>
+#include <../../../OTTERUS_WINDOW/include/Windowing/Window.h>
 
 
 void engine::Application::Run() {
@@ -28,7 +28,7 @@ void engine::Application::Run() {
 void engine::Application::Init()
 {
     m_context = std::make_unique<EngineContext>(GetWindowDesc());
-    m_context->GetDispatcher().Subscribe<WindowCloseEvent>([this](WindowCloseEvent& e) {
+    m_context->GetDispatcher().Subscribe<otterus::windowing::event::WindowCloseEvent>([this](otterus::windowing::event::WindowCloseEvent& e) {
         m_Running = false;
         e.Handled = true;
     });

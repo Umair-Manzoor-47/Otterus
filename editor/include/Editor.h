@@ -7,12 +7,12 @@
 #include <entrypoint/Application.h>
 #include <IGame.h>
 #include <panels/Panel.h>
-#include <graphics/FrameBuffer.h>
+#include <Rendering/Buffers/FrameBuffer.h>
 
 namespace editor {
     class Editor : public engine::Application {
     public:
-        engine::WindowDesc GetWindowDesc() override;
+        otterus::windowing::WindowDesc GetWindowDesc() override;
         void OnStart() override;
         void OnUpdate(float deltaTime) override;
         void OnRender() override;
@@ -31,7 +31,7 @@ namespace editor {
         std::unique_ptr<IGame> m_currentGame;
         std::unique_ptr<Panel> m_sceneHierarchy;
         std::unique_ptr<Panel> m_sceneViewport;
-        std::shared_ptr<FrameBuffer> m_frameBuffer;
+        std::shared_ptr<otterus_rendering::FrameBuffer> m_frameBuffer;
 
         void initializePanels();
     };
