@@ -3,7 +3,7 @@
 // Copyright (c) 2026 Otterus, LLC. All rights reserved.
 //
 
-#include <Resources/ResourceManager.h>
+#include <Core/Resources/ResourceManager.h>
 #include <logger/Logger.h>
 #include <Rendering/Essentials/TextureLoader.h>
 #include <Rendering/Essentials/ShaderLoader.h>

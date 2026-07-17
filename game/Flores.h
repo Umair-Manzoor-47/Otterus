@@ -6,7 +6,7 @@
 #include <entrypoint/Application.h>
 #include <scene/Scene.h>
 #include <IGame.h>
-#include <Resources/ResourceManager.h>
+#include <Core/Resources/ResourceManager.h>
 #include <engine_context/EngineContext.h>
 
 class Flores : public editor::IGame {

@@ -4,6 +4,7 @@ project(OTTERUS_WINDOW)
 add_library(${PROJECT_NAME} STATIC
         src/Window.cpp
         src/InputSystem.cpp
+        src/Dispatcher.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

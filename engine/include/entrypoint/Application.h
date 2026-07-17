@@ -1,12 +1,8 @@
-//
-// Created by umair on 5/8/2026.
-//
 #pragma once
 #include <Rendering/Core/Camera.h>
-#include <core/Core.h>
-#include <../../../OTTERUS_RENDERING/include/Rendering/Core/GraphicsEngine.h>
-#include <event/Dispatcher.h>
-#include <../../../OTTERUS_WINDOW/include/Windowing/Window.h>
+#include <types/Type.h>
+#include <Rendering/Core/GraphicsEngine.h>
+#include <Windowing/Window.h>
 #include <Input/InputSystem.h>
 #include <engine_context/EngineContext.h>
 

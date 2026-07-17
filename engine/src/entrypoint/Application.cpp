@@ -1,10 +1,6 @@
-//
-// Created by umair on 5/8/2026.
-//
-
 #include <entrypoint/Application.h>
 #include <event/window/WindowCloseEvent.h>
-#include <../../../OTTERUS_WINDOW/include/Windowing/Window.h>
+#include <Windowing/Window.h>
 
 
 void engine::Application::Run() {

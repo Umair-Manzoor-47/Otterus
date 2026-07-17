@@ -11,15 +11,13 @@ target_sources(OtterusEngine PRIVATE
         src/engine_context/EngineContext.cpp
         src/entrypoint/Application.cpp
         src/game_object/GameObject.cpp
-        ../OTTERUS_CORE/src/ResourceManager.cpp
-        ../OTTERUS_WINDOW/src/InputSystem.cpp
-        src/event/Dispatcher.cpp
         src/scene/Scene.cpp
 )
 
 target_include_directories(OtterusEngine PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
         ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/vendor
 
 )
 target_link_libraries(OtterusEngine

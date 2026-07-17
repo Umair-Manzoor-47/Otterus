@@ -6,7 +6,7 @@
 #include <game_object/GameObject.h>
 #include <Rendering/Core/GraphicsEngine.h>
 #include <Rendering/Core/Camera.h>
-#include <core/Common.h>
+#include <Ecs/Registry.h>
 namespace engine
 {
     class Scene

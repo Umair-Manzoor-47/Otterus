@@ -1,6 +1,5 @@
 ﻿#pragma once
-#include <core/Common.h>
-#include <core/Core.h>
+#include <memory>
 #include <string>
 #include <Rendering/Essentials/Mesh.h>
 #include <Rendering/Essentials/Shader.h>
