@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <core/Core.h>
+#include <types/Type.h>
 #include <Rendering/Core/GraphicsEngine.h>
 #include <event/Dispatcher.h>
 #include <Windowing/Window.h>

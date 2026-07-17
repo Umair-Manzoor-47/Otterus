@@ -1,14 +1,10 @@
-//
-// Created by umair on 5/8/2026.
-//
-
 #include "Flores.h"
 #include <logger/Logger.h>
 #include <event/keyboard/KeyPressedEvent.h>
 #include <event/mouse/MouseMovedEvent.h>
 #include <game_object/GameObject.h>
-#include <../OTTERUS_RENDERING/include/Rendering/Essentials/MeshLoader.h>
-#include <../OTTERUS_CORE/include/Core/Resources/ResourceManager.h>
+#include <Rendering/Essentials/MeshLoader.h>
+#include <Core/Resources/ResourceManager.h>
 
 Flores::Flores() {}
 
