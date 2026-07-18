@@ -10,8 +10,7 @@ namespace otterus_rendering {
     public:
         Material() = default;
 
-        // Getters
-        std::shared_ptr<Texture> GetDiffuseTexture() const
+        const Texture& GetDiffuseTexture() const
         {
             return m_diffuseTexture;
         }
@@ -36,11 +35,11 @@ namespace otterus_rendering {
             return m_useTexture;
         }
 
-        // Setters
-	    void SetDiffuseTexture(const std::shared_ptr<Texture>& texture) {
-    	    m_diffuseTexture = texture;
-    	    m_useTexture = (texture != nullptr);
-	    }
+        void SetDiffuseTexture(const Texture& texture)
+        {
+            m_diffuseTexture = texture;
+            m_useTexture = texture.GetID() != 0;
+        }
 
         void SetDiffuseColor(const glm::vec3& color)
         {
@@ -63,12 +62,11 @@ namespace otterus_rendering {
         }
 
     private:
-	    glm::vec3 m_diffuseColor = glm::vec3(1.0f);
-	    float m_shininess = 32.f;
-	    float m_specularStrength = 0.5f;
-	    bool m_useTexture = false;
-        std::shared_ptr<Texture> m_diffuseTexture;
+        Texture m_diffuseTexture;
+        glm::vec3 m_diffuseColor{1.0f};
+        float m_shininess{32.0f};
+        float m_specularStrength{0.5f};
+        bool m_useTexture{false};
     };
-
 
 }

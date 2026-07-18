@@ -8,7 +8,7 @@
 namespace otterus_rendering {
     // Layout Produced
     // [x y z nx ny nz u v]
-    MeshData MeshLoader::Load(const std::string& path)
+    std::shared_ptr<Mesh> MeshLoader::Load(const std::string& path)
     {
         tinyobj::attrib_t attrib;
         std::vector<tinyobj::shape_t> shapes;
@@ -76,7 +76,7 @@ namespace otterus_rendering {
             }
         }
 
-
-        return meshData;
+        auto mesh = std::make_shared<Mesh>(meshData);
+        return mesh;
     }
 }
