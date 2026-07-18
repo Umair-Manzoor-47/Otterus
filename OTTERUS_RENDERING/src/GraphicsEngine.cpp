@@ -25,8 +25,8 @@ namespace otterus_rendering
             shader.SetUniform("useTexture", material->GetUseTexture());
             shader.SetUniform("diffuseColor", material->GetDiffuseColor());
             shader.SetUniform("shininess", material->GetShininess());
-            if (material->GetUseTexture() && material->GetDiffuseTexture())
-                material->GetDiffuseTexture()->Bind();
+            if (material->GetUseTexture())
+                material->GetDiffuseTexture().Bind();
         }
         mesh.Draw();
     }

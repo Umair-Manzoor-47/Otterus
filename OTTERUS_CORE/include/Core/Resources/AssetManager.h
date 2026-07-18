@@ -7,19 +7,24 @@
 #include <Rendering/Essentials/Shader.h>
 
 namespace otterus_resources {
-    class ResourceManager {
+    class AssetManager {
     public:
+
+        bool AddTexture(const std::string& textureName, const std::string& path);
+        const otterus_rendering::Texture& GetTexture(const std::string& textureName);
+
+        bool AddMesh(const std::string& meshName, const std::string& path);
+        std::shared_ptr<otterus_rendering::Mesh> GetMesh(const std::string& meshName);
+
+        bool AddShader(const std::string& shaderName, const std::string &vertexPath, const std::string &fragmentPath);
+        otterus_rendering::Shader& GetShader(const std::string& shaderName);
+
         template<typename T>
         std::shared_ptr<T> Load(const std::string& path);
         void Clear();
 
         std::shared_ptr<otterus_rendering::Shader> LoadShader(const std::string &vertexPath, const std::string &fragmentPath);
 
-        template<typename T>
-        bool Exists(const std::string& path);
-
-        template<typename T>
-        void Unload(const std::string& path);
 
         size_t GetTextureCount() const { return m_textures.size(); }
         size_t GetMeshCount()    const { return m_meshes.size(); }

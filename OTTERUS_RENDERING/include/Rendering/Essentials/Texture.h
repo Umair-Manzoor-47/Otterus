@@ -11,6 +11,7 @@ namespace otterus_rendering {
     };
     class Texture {
     public:
+        Texture();
         Texture(unsigned int width, unsigned int height);
         Texture(const TextureData& data);
         void Bind() const;

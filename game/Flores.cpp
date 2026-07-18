@@ -4,7 +4,7 @@
 #include <event/mouse/MouseMovedEvent.h>
 #include <game_object/GameObject.h>
 #include <Rendering/Essentials/MeshLoader.h>
-#include <Core/Resources/ResourceManager.h>
+#include <Core/Resources/AssetManager.h>
 
 Flores::Flores() {}
 
@@ -12,17 +12,33 @@ void Flores::OnStart() {
 
     OT_INFO("Flores Start.");
     // Systems
-    m_resourceManager = std::make_unique<otterus_resources::ResourceManager>();
+    m_resourceManager = std::make_unique<otterus_resources::AssetManager>();
     m_camera = std::make_unique<otterus_rendering::Camera>();
     m_input = &GetContext().GetInputSystem();
-    
+
+    // Registry from EnTT
+    // Registry from EnTT
+    m_registry = std::make_unique<otterus_core::ECS::Registry>();
+    if (!m_registry) {
+        OT_ERROR("Failed to create the EnTT registry");
+        return;
+    }
+
     // Resources 
     const std::shared_ptr<otterus_rendering::Shader> m_shader = m_resourceManager->LoadShader( "../game/assets/shaders/vertex_shader.glsl",
         "../game/assets/shaders/fragment_shader.glsl");
     auto meshData = otterus_rendering::MeshLoader::Load("../game/assets/cube/Cube.obj");
-    auto m_mesh = m_resourceManager->Load<otterus_rendering::Mesh>("../game/assets/cube/Cube.obj");
+    if (!m_resourceManager->AddMesh("CubeMesh", "../game/assets/cube/Cube.obj")) {
+        OT_ERROR("Failed to add mesh");
+        return;
+    }
+    auto m_mesh = m_resourceManager->GetMesh("CubeMesh");
     auto material = std::make_shared<otterus_rendering::Material>();
-    auto texture = m_resourceManager->Load<otterus_rendering::Texture>("../game/assets/cube/cube_texture.png");
+    if (!m_resourceManager->AddTexture("cube", "../game/assets/cube/cube_texture.png")) {
+
+        OT_INFO("Failed to Create texture");
+    }
+    auto texture = m_resourceManager->GetTexture("cube");
     material->SetUseTexture(true);
     material->SetDiffuseTexture(texture);
 

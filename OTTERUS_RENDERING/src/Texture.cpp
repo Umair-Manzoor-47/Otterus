@@ -36,6 +36,10 @@ namespace otterus_rendering
         glGenerateMipmap(GL_TEXTURE_2D);
     }
 
+    Texture::Texture() : Texture(0,0)
+    {
+    }
+
     Texture::Texture(unsigned int width, unsigned int height) {
         // Generate and bind the texture
         glGenTextures(1, &m_textureID);
