@@ -1,6 +1,6 @@
 ﻿#include <scene/Scene.h>
 #include <entt/entt.hpp>
-#include <ECS/Component/TransformComponent.h>
+#include <ECS/Components/TransformComponent.h>
 #include <ECS/Registry.h>
 
 void engine::Scene::AddObject(std::unique_ptr<GameObject> object){
