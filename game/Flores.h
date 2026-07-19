@@ -27,7 +27,7 @@ private:
     std::unique_ptr<otterus_core::ECS::Registry> m_registry;
     otterus::windowing::input::InputSystem* m_input = nullptr;
     otterus_rendering::GraphicsEngine* m_gfx = nullptr;
-    std::unique_ptr<otterus_rendering::Camera> m_camera;
+    std::shared_ptr<otterus_rendering::Camera> m_camera;
     float m_lastMouseX = 400.f;
     float m_lastMouseY = 300.f;
     float m_yaw   = -90.f;

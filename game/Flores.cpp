@@ -5,40 +5,59 @@
 #include <game_object/GameObject.h>
 #include <Rendering/Essentials/MeshLoader.h>
 #include <Core/Resources/AssetManager.h>
+#include <ECS/Entity.h>
 
+#include "ECS/Components/Identification.h"
+#include "ECS/Components/TransformComponent.h"
 Flores::Flores() {}
 
 void Flores::OnStart() {
 
     OT_INFO("Flores Start.");
     // Systems
-    m_resourceManager = std::make_unique<otterus_resources::AssetManager>();
-    m_camera = std::make_unique<otterus_rendering::Camera>();
+    auto m_assetManager = std::make_shared<otterus_resources::AssetManager>();
+    m_camera = std::make_shared<otterus_rendering::Camera>();
     m_input = &GetContext().GetInputSystem();
 
     // Registry from EnTT
-    // Registry from EnTT
-    m_registry = std::make_unique<otterus_core::ECS::Registry>();
+    auto m_registry = std::make_unique<otterus_core::ECS::Registry>();
     if (!m_registry) {
         OT_ERROR("Failed to create the EnTT registry");
         return;
     }
+    if (!m_registry->AddToContext<std::shared_ptr<otterus_resources::AssetManager>>(m_assetManager)) {
+        OT_ERROR("Failed to add AssetManager into registry context.");
+        return;
+    }
 
+    if (!m_registry->AddToContext<std::shared_ptr<otterus_rendering::Camera>>(m_camera)) {
+        OT_ERROR("Failed to add Camera2D into registry context.");
+        return;
+    }
+
+    auto entity1 = std::make_unique<otterus_core::ECS::Entity>(*m_registry, "gameobject", "test");
+
+    otterus_core::ECS::TransformComponent transform;
+    transform.position = {0.f, 0.f, 0.f};
+    transform.scale = {1.f, 1.f, 1.f};
+    transform.rotation = {0.f, 0.f, 0.f};
+
+    entity1->AddComponent<otterus_core::ECS::TransformComponent>(transform);
     // Resources 
-    const std::shared_ptr<otterus_rendering::Shader> m_shader = m_resourceManager->LoadShader( "../game/assets/shaders/vertex_shader.glsl",
+    const std::shared_ptr<otterus_rendering::Shader> m_shader = m_assetManager->LoadShader( "../game/assets/shaders/vertex_shader.glsl",
         "../game/assets/shaders/fragment_shader.glsl");
     auto meshData = otterus_rendering::MeshLoader::Load("../game/assets/cube/Cube.obj");
-    if (!m_resourceManager->AddMesh("CubeMesh", "../game/assets/cube/Cube.obj")) {
+    if (!m_assetManager->AddMesh("CubeMesh", "../game/assets/cube/Cube.obj")) {
         OT_ERROR("Failed to add mesh");
         return;
     }
-    auto m_mesh = m_resourceManager->GetMesh("CubeMesh");
+    auto m_mesh = m_assetManager->GetMesh("CubeMesh");
     auto material = std::make_shared<otterus_rendering::Material>();
-    if (!m_resourceManager->AddTexture("cube", "../game/assets/cube/cube_texture.png")) {
+    if (!m_assetManager->AddTexture("cube", "../game/assets/cube/cube_texture.png")) {
 
         OT_INFO("Failed to Create texture");
     }
-    auto texture = m_resourceManager->GetTexture("cube");
+    auto texture = m_assetManager->GetTexture("cube");
     material->SetUseTexture(true);
     material->SetDiffuseTexture(texture);
 

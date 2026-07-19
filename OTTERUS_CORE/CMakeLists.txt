@@ -4,6 +4,7 @@ project(OTTERUS_CORE)
 add_library(${PROJECT_NAME} STATIC
         src/AssetManager.cpp
         src/Registry.cpp
+        src/Entity.cpp
 
 )
 
