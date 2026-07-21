@@ -5,7 +5,10 @@
 
 namespace otterus::windowing
 {
-    Window::Window(const WindowDesc& desc, event::Dispatcher& dispatcher):m_height(desc.height), m_width(desc.width), m_title(desc.title), m_dispatcher(dispatcher) {}
+    Window::Window(const WindowDesc& desc, otterus_core::ECS::Registry& registry):m_height(desc.height), m_width(desc.width), m_title(desc.title) {
+
+        m_dispatcher = registry.GetContext<std::shared_ptr<event::Dispatcher>>();
+    }
 
     void Window::Init() {
         glfwInit();
@@ -50,7 +53,7 @@ namespace otterus::windowing
         );
         // fire the event through dispatcher
         event::WindowCloseEvent event;
-        data->window->m_dispatcher.Dispatch(event);
+        data->window->m_dispatcher->Dispatch(event);
     }
 
     void Window::OnWindowResize(GLFWwindow* handle, int width, int height) {
@@ -60,6 +63,6 @@ namespace otterus::windowing
         );
         // fire the event through dispatcher
         event::WindowResizeEvent event{width, height};
-        data->window->m_dispatcher.Dispatch(event);
+        data->window->m_dispatcher->Dispatch(event);
     }
 }

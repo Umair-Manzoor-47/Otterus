@@ -12,14 +12,12 @@ namespace editor {
     class IGame {
     public:
         virtual ~IGame() = default;
-
         virtual void OnStart() = 0;
         virtual void OnUpdate(float dt) = 0;
         virtual void OnRender() = 0;
         virtual void OnShutdown() = 0;
+        virtual void Initialize(otterus_core::ECS::Registry& registry) = 0;
         virtual engine::Scene *GetScene() = 0;
-        virtual void SetEngineContext(engine::EngineContext* context) = 0;
-        virtual engine::EngineContext& GetContext() = 0;
 
         friend class Editor;
     };
