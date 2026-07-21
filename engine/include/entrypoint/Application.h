@@ -28,6 +28,7 @@ namespace engine {
         std::unique_ptr<otterus_core::ECS::Registry> m_registry;
 
     private:
+        otterus::windowing::WindowUserData m_windowUserData{};
         float m_lastTime = 0.f;
         
         float calculateDeltaTime();

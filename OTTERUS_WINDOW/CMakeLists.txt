@@ -19,4 +19,5 @@ target_link_libraries(${PROJECT_NAME}
         glad
         glfw
         OTTERUS_LOGGER
+        OTTERUS_CORE
 )

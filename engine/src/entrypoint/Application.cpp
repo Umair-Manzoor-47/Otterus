@@ -48,7 +48,7 @@ void engine::Application::Init()
 
     auto m_window = std::make_shared<otterus::windowing::Window>(
     otterus::windowing::WindowDesc{1920, 1080, "Otterus"},
-    *m_dispatcher
+    *m_registry
     );
     m_window->Init();
     if (!m_registry->AddToContext<std::shared_ptr<otterus::windowing::Window>>(m_window)) {
@@ -70,7 +70,7 @@ void engine::Application::Init()
         return;
     }
 
-    otterus::windowing::WindowUserData m_windowUserData = { m_window.get(), m_inputSystem.get() };
+    m_windowUserData = { m_window.get(), m_inputSystem.get() };
     glfwSetWindowUserPointer(m_window->GetWindowHandle(), &m_windowUserData);
     m_dispatcher->Subscribe<otterus::windowing::event::WindowCloseEvent>([this](otterus::windowing::event::WindowCloseEvent& e) {
         m_Running = false;
