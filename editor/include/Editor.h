@@ -23,6 +23,8 @@ namespace editor {
         void Init() override;
 
         void SetGame(std::unique_ptr<IGame> game);
+
+        otterus_core::ECS::Registry& GetRegistry() const {return *m_registry;}
     protected:
         void BeginImGui();
         void EndImGui();

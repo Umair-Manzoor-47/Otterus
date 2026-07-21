@@ -15,12 +15,14 @@ public:
     void OnUpdate(float deltaTime) override;
     void OnShutdown() override;
     void OnRender() override;
+    void Initialize(otterus_core::ECS::Registry& registry) override;
 
     engine::Scene* GetScene() override { return m_scene.get(); }
     
 private:
     std::unique_ptr<otterus_resources::AssetManager> m_resourceManager;
     std::shared_ptr<otterus::windowing::input::InputSystem> m_input = nullptr;
+    otterus_core::ECS::Registry* m_registry = nullptr;
     otterus_rendering::GraphicsEngine* m_gfx = nullptr;
     std::shared_ptr<otterus_rendering::Camera> m_camera;
     float m_lastMouseX = 400.f;

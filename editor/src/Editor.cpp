@@ -17,9 +17,8 @@ otterus::windowing::WindowDesc editor::Editor::GetWindowDesc()
     return otterus::windowing::WindowDesc{1280, 720, "Otterus"};
 }
 void editor::Editor::OnStart() {
-m_currentGame->OnStart();
+    m_currentGame->OnStart();
     initializePanels();
-
 }
 
 void editor::Editor::OnUpdate(float deltaTime) {
@@ -50,7 +49,7 @@ void editor::Editor::BeginImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     auto graphicsEngine = m_registry->GetContext<std::shared_ptr<otterus_rendering::GraphicsEngine>>();
-    ImGui_ImplGlfw_InitForOpenGL(GetContext().GetWindow().GetWindowHandle(), true
+    ImGui_ImplGlfw_InitForOpenGL(m_registry->GetContext<std::shared_ptr<otterus::windowing::Window>>()->GetWindowHandle(), true
         );
     ImGui_ImplOpenGL3_Init("#version 330");
     
@@ -101,9 +100,8 @@ void editor::Editor::OnFrameEnd() {
 
 void editor::Editor::Init() {
     Application::Init();
+    m_currentGame->Initialize(*m_registry);
     BeginImGui();
-    m_currentGame->SetEngineContext(&GetContext());
-
 }
 
 void editor::Editor::SetGame(std::unique_ptr<IGame> game) {

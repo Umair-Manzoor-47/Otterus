@@ -6,7 +6,7 @@
 #include <Rendering/Essentials/MeshLoader.h>
 #include <Core/Resources/AssetManager.h>
 #include <ECS/Entity.h>
-
+#include <Input/InputSystem.h>
 #include "ECS/Components/Identification.h"
 #include "ECS/Components/TransformComponent.h"
 Flores::Flores() {}
@@ -19,10 +19,6 @@ void Flores::OnStart() {
     m_camera = std::make_shared<otterus_rendering::Camera>();
     m_input = m_registry->GetContext<std::shared_ptr<otterus::windowing::input::InputSystem>>();
 
-    if (!m_registry) {
-        OT_ERROR("Failed to create the EnTT registry");
-        return;
-    }
     if (!m_registry->AddToContext<std::shared_ptr<otterus_resources::AssetManager>>(m_assetManager)) {
         OT_ERROR("Failed to add AssetManager into registry context.");
         return;
@@ -159,4 +155,9 @@ void Flores::OnRender()
     light.color = glm::vec3(1.0f);
     auto graphicsEngine = m_registry->GetContext<std::shared_ptr<otterus_rendering::GraphicsEngine>>();
     m_scene->Render(*graphicsEngine, m_camera->GetRenderCamera(), light);
+}
+
+void Flores::Initialize(otterus_core::ECS::Registry& registry)
+{
+    m_registry = &registry;
 }
