@@ -49,6 +49,7 @@ void editor::Editor::OnShutdown() {
 void editor::Editor::BeginImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+    auto graphicsEngine = m_registry->GetContext<std::shared_ptr<otterus_rendering::GraphicsEngine>>();
     ImGui_ImplGlfw_InitForOpenGL(GetContext().GetWindow().GetWindowHandle(), true
         );
     ImGui_ImplOpenGL3_Init("#version 330");

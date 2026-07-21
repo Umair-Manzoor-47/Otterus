@@ -1,10 +1,8 @@
 #pragma once
-#include <Rendering/Core/Camera.h>
-#include <types/Type.h>
-#include <Rendering/Core/GraphicsEngine.h>
+
 #include <Windowing/Window.h>
-#include <Input/InputSystem.h>
-#include <engine_context/EngineContext.h>
+
+#include "Ecs/Registry.h"
 
 namespace engine {
     class Application {
@@ -27,10 +25,9 @@ namespace engine {
 
     protected:
         bool m_Running = true;
-        EngineContext& GetContext() { return *m_context; }
+        std::unique_ptr<otterus_core::ECS::Registry> m_registry;
 
     private:
-        std::unique_ptr<EngineContext> m_context;
         float m_lastTime = 0.f;
         
         float calculateDeltaTime();

@@ -17,10 +17,8 @@ void Flores::OnStart() {
     // Systems
     auto m_assetManager = std::make_shared<otterus_resources::AssetManager>();
     m_camera = std::make_shared<otterus_rendering::Camera>();
-    m_input = &GetContext().GetInputSystem();
+    m_input = m_registry->GetContext<std::shared_ptr<otterus::windowing::input::InputSystem>>();
 
-    // Registry from EnTT
-    auto m_registry = std::make_unique<otterus_core::ECS::Registry>();
     if (!m_registry) {
         OT_ERROR("Failed to create the EnTT registry");
         return;
@@ -90,7 +88,8 @@ void Flores::OnStart() {
     
     
     // Events
-    GetContext().GetDispatcher().Subscribe<otterus::windowing::event::MouseMovedEvent>([this](otterus::windowing::event::MouseMovedEvent& e) {
+    auto dispatcher = m_registry->GetContext<std::shared_ptr<otterus::windowing::event::Dispatcher>>();
+    dispatcher->Subscribe<otterus::windowing::event::MouseMovedEvent>([this](otterus::windowing::event::MouseMovedEvent& e) {
     if (m_firstMouse) {
         m_lastMouseX = e.GetX();
         m_lastMouseY = e.GetY();
@@ -158,10 +157,6 @@ void Flores::OnRender()
     otterus_rendering::RenderLight light;
     light.position = glm::vec3(1.2f, 1.0f, 2.0f);
     light.color = glm::vec3(1.0f);
-    m_scene->Render(GetContext().GetGraphicsEngine(), m_camera->GetRenderCamera(), light);
-}
-
-void Flores::SetEngineContext(engine::EngineContext* context)
-{
-    m_engineContext = context;
+    auto graphicsEngine = m_registry->GetContext<std::shared_ptr<otterus_rendering::GraphicsEngine>>();
+    m_scene->Render(*graphicsEngine, m_camera->GetRenderCamera(), light);
 }

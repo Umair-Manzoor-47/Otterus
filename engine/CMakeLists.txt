@@ -8,7 +8,6 @@ add_library(${PROJECT_NAME} STATIC)
 
 
 target_sources(OtterusEngine PRIVATE
-        src/engine_context/EngineContext.cpp
         src/entrypoint/Application.cpp
         src/game_object/GameObject.cpp
         src/scene/Scene.cpp

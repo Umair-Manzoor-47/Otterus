@@ -18,8 +18,6 @@ namespace editor {
         virtual void OnRender() = 0;
         virtual void OnShutdown() = 0;
         virtual engine::Scene *GetScene() = 0;
-        virtual void SetEngineContext(engine::EngineContext* context) = 0;
-        virtual engine::EngineContext& GetContext() = 0;
 
         friend class Editor;
     };
