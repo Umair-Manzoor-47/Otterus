@@ -15,7 +15,6 @@ add_library(${PROJECT_NAME} STATIC
         src/MeshLoader.cpp
         src/stb_img.cpp
         src/TinyObjLoader.cpp
-        src/Transform.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

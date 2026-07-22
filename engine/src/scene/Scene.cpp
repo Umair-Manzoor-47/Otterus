@@ -3,30 +3,36 @@
 #include <ECS/Components/TransformComponent.h>
 #include <ECS/Registry.h>
 
-void engine::Scene::AddObject(std::unique_ptr<GameObject> object){
-	m_gameObjects.push_back(std::move(object));
+#include <Core/Systems/TransformSystem.h>
+
+engine::Scene::Scene(otterus_core::ECS::Registry& registry):
+m_registry(registry)
+{}
+
+void engine::Scene::AddEntity(std::shared_ptr<otterus_core::ECS::Entity> entity){
+	m_entities.push_back(std::move(entity));
 }
 
-void engine::Scene::RemoveObject(const std::string& name){
-m_gameObjects.erase(
+void engine::Scene::RemoveEntity(const std::string& name){
+m_entities.erase(
         std::remove_if(
-            m_gameObjects.begin(),
-            m_gameObjects.end(),
-            [&](const std::unique_ptr<GameObject>& object)
+            m_entities.begin(),
+            m_entities.end(),
+            [&](const std::shared_ptr<otterus_core::ECS::Entity>& entity)
             {
-                return object->GetName() == name;
+                return entity->GetName() == name;
             }),
-        m_gameObjects.end());
+        m_entities.end());
 }
 
 
-engine::GameObject* engine::Scene::GetObject(const std::string& name)
+otterus_core::ECS::Entity* engine::Scene::GetEntity(const std::string& name)
 {
-    for (const auto& object : m_gameObjects)
+    for (const auto& entity : m_entities)
     {
-        if (object->GetName() == name)
+        if (entity->GetName() == name)
         {
-            return object.get();
+            return entity.get();
         }
     }
 
@@ -35,17 +41,19 @@ engine::GameObject* engine::Scene::GetObject(const std::string& name)
 
 void engine::Scene::Render(otterus_rendering::GraphicsEngine& gfx, const otterus_rendering::RenderCamera& renderCamera, const otterus_rendering::RenderLight& light) {
 
-    for (auto& object : m_gameObjects) {
-        if (!object->HasMesh() || !object->HasShader())
+    for (auto& entity : m_entities) {
+        if (!entity->HasComponent<std::shared_ptr<otterus_rendering::Mesh>>() || !entity->HasComponent<std::shared_ptr<otterus_rendering::Shader>>())
             continue;
-        
+        auto transform = entity->GetComponent<otterus_core::ECS::TransformComponent>();
+        auto transformSystem = m_registry.GetContext<std::shared_ptr<otterus_core::Systems::TransformSystem>>();
+        transformSystem->Update(m_registry.GetRegistry());
         gfx.Draw(
-            *object->GetMesh(),
-            *object->GetShader(),
-            object->GetMaterial().get(),
+            *entity->GetComponent<std::shared_ptr<otterus_rendering::Mesh>>(),
+            *entity->GetComponent<std::shared_ptr<otterus_rendering::Shader>>(),
+            entity->GetComponent<std::shared_ptr<otterus_rendering::Material>>().get(),
             renderCamera,
             light,
-            object->GetTransform().GetModelMatrix()
+            transform.modelMatrix
             );
     }
 }

@@ -1,6 +1,3 @@
-//
-// Created by umair on 5/9/2026.
-//
 #pragma once
 #include <fstream>
 #include <sstream>
@@ -27,7 +24,7 @@ namespace otterus_rendering {
             const Mesh& mesh,
             const Shader& shader,
             const Material* material,
-            const otterus_rendering::RenderCamera& camera,
+            const RenderCamera& camera,
             const RenderLight& light,
             const glm::mat4& model
         );

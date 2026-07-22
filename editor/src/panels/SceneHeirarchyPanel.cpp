@@ -1,8 +1,3 @@
-//
-// Created by Umair Manzoor on 5/26/2026.
-// Copyright (c) 2026 Otterus, LLC. All rights reserved.
-//
-
 #include <panels/SceneHierarchyPanel.h>
 
 #include <imgui.h>
@@ -24,7 +19,7 @@ void editor::SceneHierarchyPanel::OnRender() {
         return;
     }
 
-    const auto& objects = m_scene->GetObjects();
+    const auto& objects = m_scene->GetEntities();
     ImGui::Text("Object count: %d", (int)objects.size());
     for (const auto& obj : objects) {
         if (!obj) continue;
