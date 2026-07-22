@@ -9,6 +9,9 @@ namespace otterus_core::ECS {
         glm::vec3 scale{ glm::vec3{1.f} };
         glm::vec3 rotation{ 0.f };
 
+        glm::mat4 modelMatrix{1.0f};
+
+        bool dirty{true};
     };
 
 }

@@ -3,28 +3,28 @@
 #include <memory>
 #include <string>
 #include <algorithm>
-#include <game_object/GameObject.h>
 #include <Rendering/Core/GraphicsEngine.h>
 #include <Rendering/Core/Camera.h>
 #include <Ecs/Registry.h>
+#include <ECS/Entity.h>
+
 namespace engine
 {
     class Scene
     {
     public:
-        Scene() = default;
-        void AddObject(std::unique_ptr<GameObject> object);
-        void RemoveObject(const std::string& name);
+        Scene(otterus_core::ECS::Registry& registry);
+        void AddEntity(std::shared_ptr<otterus_core::ECS::Entity> entity);
+        void RemoveEntity(const std::string& name);
         void Render(otterus_rendering::GraphicsEngine& gfx, const otterus_rendering::RenderCamera& renderCamera, const otterus_rendering::RenderLight& light);
-        
-        GameObject* GetObject(const std::string& name);
-        const std::vector<std::unique_ptr<GameObject>>& GetObjects() const
-        {
-            return m_gameObjects;
-        }
-        
+
+
+        otterus_core::ECS::Entity* GetEntity(const std::string& name);
+        const std::vector<std::shared_ptr<otterus_core::ECS::Entity>>& GetEntities() const {return m_entities;}
+
     private:
-        std::vector<std::unique_ptr<GameObject>> m_gameObjects;
+        std::vector<std::shared_ptr<otterus_core::ECS::Entity>> m_entities;
+        otterus_core::ECS::Registry& m_registry;
     
     };
     
